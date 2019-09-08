@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2018/02/04/discriminative-or-generative-model/</loc>
+    <lastmod>2018-02-04T15:18:07.096Z</lastmod>
+    <data>
+        <display>
+        <title>论判别模型和生成模型</title>
+        <pubTime>2018-02-04T14:17:38.000Z</pubTime>
+        
+        <tag>Discriminative model</tag>
+         
+        <tag>Generative model</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/12/27/rating-model-considering-user-count/</loc>
+    <lastmod>2017-12-27T13:34:32.650Z</lastmod>
+    <data>
+        <display>
+        <title>考虑评分人数的用户评分模型</title>
+        <pubTime>2017-12-27T12:57:14.000Z</pubTime>
+        
+        <tag>Rating</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/12/23/GD-Series/</loc>
+    <lastmod>2017-12-23T15:27:02.640Z</lastmod>
+    <data>
+        <display>
+        <title>梯度下降法家族</title>
+        <pubTime>2017-12-23T11:51:16.000Z</pubTime>
+        
+        <tag>GD</tag>
+         
+        <tag>Momentum</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/</loc>
+    <lastmod>2017-12-03T05:41:10.641Z</lastmod>
+    <data>
+        <display>
+        <title>由 Softmax 想到的（二）—— Logistic 回归的 Loss 函数为什么长成那个样子？</title>
+        <pubTime>2017-08-10T14:18:09.000Z</pubTime>
+        
+        <tag>Convex optimization</tag>
+         
+        <tag>Logistic</tag>
+         
+        <tag>Softmax</tag>
+         
+        <tag>Gradient</tag>
+         
+        <tag>Subgradient</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/08/13/about-kernel-02/</loc>
+    <lastmod>2017-12-03T05:40:44.989Z</lastmod>
+    <data>
+        <display>
+        <title>说一说核方法（二）——数学角度简介（掉粉文）</title>
+        <pubTime>2017-08-13T09:42:38.000Z</pubTime>
+        
+        <tag>Kernel</tag>
+         
+        <tag>RKHS</tag>
+         
+        <tag>Functional analysis</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/12/03/common-ground-of-mse-and-cee-in-nn/</loc>
+    <lastmod>2017-12-03T05:24:00.251Z</lastmod>
+    <data>
+        <display>
+        <title>神经网络中均方误差与交叉熵作为损失函数的共同点</title>
+        <pubTime>2017-12-03T04:39:14.000Z</pubTime>
+        
+        <tag>Deep learning</tag>
+         
+        <tag>Loss function</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/10/15/from-boost-to-Adaboost-to-GBT/</loc>
+    <lastmod>2017-12-03T04:45:29.309Z</lastmod>
+    <data>
+        <display>
+        <title>浅谈 boost、Adaboost 和 提升树</title>
+        <pubTime>2017-10-15T03:31:35.000Z</pubTime>
+        
+        <tag>Ensemble</tag>
+         
+        <tag>Boost</tag>
+         
+        <tag>GBDT/GBRT</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/08/11/thinking-from-softmax-03/</loc>
+    <lastmod>2017-12-03T04:45:03.798Z</lastmod>
+    <data>
+        <display>
+        <title>由 Softmax 想到的（三）—— 从 Sigmoid 到 ReLU，一些常见的激活函数</title>
+        <pubTime>2017-08-11T11:40:01.000Z</pubTime>
+        
+        <tag>Deep learning</tag>
+         
+        <tag>Activation function</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/11/04/GAN-02/</loc>
+    <lastmod>2017-11-04T03:58:33.000Z</lastmod>
+    <data>
+        <display>
+        <title>生成对抗网络（二）—— Wasserstein GAN 简述及一个 TensorFlow 示例</title>
+        <pubTime>2017-11-04T03:21:51.000Z</pubTime>
+        
+        <tag>Deep learning</tag>
+         
+        <tag>GAN</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/11/01/GAN-01/</loc>
+    <lastmod>2017-11-01T09:16:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>生成对抗网络（一）—— GAN 原理简述及一个 TensorFlow 示例</title>
+        <pubTime>2017-11-01T08:09:01.000Z</pubTime>
+        
+        <tag>Deep learning</tag>
+         
+        <tag>GAN</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/10/23/kmeans-is-a-gmm/</loc>
+    <lastmod>2017-10-23T16:25:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>K-means 是 GMM 的一种特例</title>
+        <pubTime>2017-10-23T15:23:56.000Z</pubTime>
+        
+        <tag>K-means</tag>
+         
+        <tag>GMM</tag>
+         
+        <tag>EM Algorithm</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/10/12/statistical-formulars-for-programmers/</loc>
+    <lastmod>2017-10-12T03:13:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>给程序员们看的统计公式</title>
+        <pubTime>2017-10-12T01:56:30.000Z</pubTime>
+        
+        <tag>Statistics</tag>
+         
+         
+           
+             
+              <breadCrumb title="Mathematics" url="http://sakigami-yang.me/categories/Mathematics/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/09/13/norm-regularization-appendix/</loc>
+    <lastmod>2017-09-13T04:07:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅说范数规范化（附录）</title>
+        <pubTime>2017-09-13T03:14:14.000Z</pubTime>
+        
+        <tag>Norm regularization</tag>
+         
+        <tag>Matrix theory</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/09/09/norm-regularization-02/</loc>
+    <lastmod>2017-09-13T04:05:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅说范数规范化（二）—— 核范数</title>
+        <pubTime>2017-09-09T01:42:10.000Z</pubTime>
+        
+        <tag>Norm regularization</tag>
+         
+        <tag>Convex optimization</tag>
+         
+        <tag>Matrix theory</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/09/07/norm-regularization-01/</loc>
+    <lastmod>2017-09-13T03:28:25.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅说范数规范化（一）—— L0 范数、L1 范数、L2 范数</title>
+        <pubTime>2017-09-07T06:43:10.000Z</pubTime>
+        
+        <tag>Norm regularization</tag>
+         
+        <tag>Convex optimization</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/08/10/thinking-from-softmax-01/</loc>
+    <lastmod>2017-08-13T12:02:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>由 Softmax 想到的（一）——广义线性模型</title>
+        <pubTime>2017-08-10T13:12:46.000Z</pubTime>
+        
+        <tag>Generalized Linear Model</tag>
+         
+        <tag>Exponential family distribution</tag>
+         
+        <tag>Logistic</tag>
+         
+        <tag>Softmax</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/08/13/about-kernel-01/</loc>
+    <lastmod>2017-08-13T09:33:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>说一说核方法（一）——核方法与核函数简介</title>
+        <pubTime>2017-08-13T08:38:35.000Z</pubTime>
+        
+        <tag>Kernel</tag>
+         
+        <tag>SVM</tag>
+         
+        <tag>RKHS</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/08/07/init-blog/</loc>
+    <lastmod>2017-08-10T13:15:31.000Z</lastmod>
+    <data>
+        <display>
+        <title>【机器不太会学习】的第一篇博文</title>
+        <pubTime>2017-08-07T14:28:18.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life" url="http://sakigami-yang.me/categories/Life/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/08/08/compare-between-PCA-and-LFM/</loc>
+    <lastmod>2017-08-10T13:14:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅谈 PCA 和 LFM 的异同</title>
+        <pubTime>2017-08-08T12:25:59.000Z</pubTime>
+        
+        <tag>PCA</tag>
+         
+        <tag>LFM</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+</urlset>
