@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://sakigami-yang.me/2019/09/10/5-steps-for-asking-good-questions/</loc>
+    <lastmod>2019-09-10T12:18:35.121Z</lastmod>
+    <data>
+        <display>
+        <title>提出好问题的 5 个步骤</title>
+        <pubTime>2019-09-10T12:05:04.000Z</pubTime>
+        
+        <tag>Tips</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life" url="http://sakigami-yang.me/categories/Life/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://sakigami-yang.me/2018/02/04/discriminative-or-generative-model/</loc>
     <lastmod>2018-02-04T15:18:07.096Z</lastmod>
     <data>
@@ -307,9 +327,9 @@
         
         <tag>Norm regularization</tag>
          
-        <tag>Convex optimization</tag>
-         
         <tag>Matrix theory</tag>
+         
+        <tag>Convex optimization</tag>
          
          
            
