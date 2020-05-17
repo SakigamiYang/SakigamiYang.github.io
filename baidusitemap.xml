@@ -28,26 +28,6 @@
     
     
   <url>
-    <loc>http://sakigami-yang.me/2017/10/12/statistical-formulars-for-programmers/</loc>
-    <lastmod>2020-05-17T15:51:04.033Z</lastmod>
-    <data>
-        <display>
-        <title>给程序员们看的统计公式</title>
-        <pubTime>2017-10-12T01:56:30.000Z</pubTime>
-        
-        <tag>Statistics</tag>
-         
-         
-           
-             
-              <breadCrumb title="Mathematics" url="http://sakigami-yang.me/categories/Mathematics/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://sakigami-yang.me/2017/08/10/thinking-from-softmax-01/</loc>
     <lastmod>2020-05-17T15:51:04.033Z</lastmod>
     <data>
@@ -67,6 +47,26 @@
            
              
               <breadCrumb title="ML" url="http://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sakigami-yang.me/2017/10/12/statistical-formulars-for-programmers/</loc>
+    <lastmod>2020-05-17T15:51:04.033Z</lastmod>
+    <data>
+        <display>
+        <title>给程序员们看的统计公式</title>
+        <pubTime>2017-10-12T01:56:30.000Z</pubTime>
+        
+        <tag>Statistics</tag>
+         
+         
+           
+             
+              <breadCrumb title="Mathematics" url="http://sakigami-yang.me/categories/Mathematics/"/>
           
         </display>
     </data>
@@ -172,14 +172,16 @@
 
     
   <url>
-    <loc>http://sakigami-yang.me/2017/12/27/rating-model-considering-user-count/</loc>
+    <loc>http://sakigami-yang.me/2017/09/13/norm-regularization-appendix/</loc>
     <lastmod>2020-05-17T15:51:04.032Z</lastmod>
     <data>
         <display>
-        <title>考虑评分人数的用户评分模型</title>
-        <pubTime>2017-12-27T12:57:14.000Z</pubTime>
+        <title>浅说范数规范化（附录）</title>
+        <pubTime>2017-09-13T03:14:14.000Z</pubTime>
         
-        <tag>Rating</tag>
+        <tag>Norm regularization</tag>
+         
+        <tag>Matrix theory</tag>
          
          
            
@@ -192,16 +194,14 @@
 
     
   <url>
-    <loc>http://sakigami-yang.me/2017/09/13/norm-regularization-appendix/</loc>
+    <loc>http://sakigami-yang.me/2017/12/27/rating-model-considering-user-count/</loc>
     <lastmod>2020-05-17T15:51:04.032Z</lastmod>
     <data>
         <display>
-        <title>浅说范数规范化（附录）</title>
-        <pubTime>2017-09-13T03:14:14.000Z</pubTime>
+        <title>考虑评分人数的用户评分模型</title>
+        <pubTime>2017-12-27T12:57:14.000Z</pubTime>
         
-        <tag>Norm regularization</tag>
-         
-        <tag>Matrix theory</tag>
+        <tag>Rating</tag>
          
          
            
@@ -236,16 +236,16 @@
 
     
   <url>
-    <loc>http://sakigami-yang.me/2018/02/04/discriminative-or-generative-model/</loc>
+    <loc>http://sakigami-yang.me/2017/08/08/compare-between-PCA-and-LFM/</loc>
     <lastmod>2020-05-17T15:51:04.031Z</lastmod>
     <data>
         <display>
-        <title>论判别模型和生成模型</title>
-        <pubTime>2018-02-04T14:17:38.000Z</pubTime>
+        <title>浅谈 PCA 和 LFM 的异同</title>
+        <pubTime>2017-08-08T12:25:59.000Z</pubTime>
         
-        <tag>Discriminative model</tag>
+        <tag>PCA</tag>
          
-        <tag>Generative model</tag>
+        <tag>LFM</tag>
          
          
            
@@ -258,16 +258,16 @@
 
     
   <url>
-    <loc>http://sakigami-yang.me/2017/08/08/compare-between-PCA-and-LFM/</loc>
+    <loc>http://sakigami-yang.me/2018/02/04/discriminative-or-generative-model/</loc>
     <lastmod>2020-05-17T15:51:04.031Z</lastmod>
     <data>
         <display>
-        <title>浅谈 PCA 和 LFM 的异同</title>
-        <pubTime>2017-08-08T12:25:59.000Z</pubTime>
+        <title>论判别模型和生成模型</title>
+        <pubTime>2018-02-04T14:17:38.000Z</pubTime>
         
-        <tag>PCA</tag>
+        <tag>Discriminative model</tag>
          
-        <tag>LFM</tag>
+        <tag>Generative model</tag>
          
          
            
@@ -408,18 +408,18 @@
 
     
   <url>
-    <loc>http://sakigami-yang.me/2017/08/13/about-kernel-02/</loc>
+    <loc>http://sakigami-yang.me/2017/08/13/about-kernel-01/</loc>
     <lastmod>2020-05-17T15:51:04.029Z</lastmod>
     <data>
         <display>
-        <title>说一说核方法（二）——数学角度简介（掉粉文）</title>
-        <pubTime>2017-08-13T09:42:38.000Z</pubTime>
+        <title>说一说核方法（一）——核方法与核函数简介</title>
+        <pubTime>2017-08-13T08:38:35.000Z</pubTime>
         
         <tag>Kernel</tag>
          
-        <tag>RKHS</tag>
+        <tag>SVM</tag>
          
-        <tag>Functional analysis</tag>
+        <tag>RKHS</tag>
          
          
            
@@ -432,18 +432,18 @@
 
     
   <url>
-    <loc>http://sakigami-yang.me/2017/08/13/about-kernel-01/</loc>
+    <loc>http://sakigami-yang.me/2017/08/13/about-kernel-02/</loc>
     <lastmod>2020-05-17T15:51:04.029Z</lastmod>
     <data>
         <display>
-        <title>说一说核方法（一）——核方法与核函数简介</title>
-        <pubTime>2017-08-13T08:38:35.000Z</pubTime>
+        <title>说一说核方法（二）——数学角度简介（掉粉文）</title>
+        <pubTime>2017-08-13T09:42:38.000Z</pubTime>
         
         <tag>Kernel</tag>
          
         <tag>RKHS</tag>
          
-        <tag>SVM</tag>
+        <tag>Functional analysis</tag>
          
          
            
