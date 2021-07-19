@@ -119,7 +119,7 @@
 <meta property="og:description" content="由好友 史博士 关于 Softmax 的问题而想到的一些脑洞。本文讲解了 Logistic 模型的 Loss 函数的来源。以及想到的一些凸优化的知识。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/subgradient.png">
-<meta property="og:updated_time" content="2021-07-19T13:27:52.566Z">
+<meta property="og:updated_time" content="2021-07-19T13:50:26.335Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="由 Softmax 想到的（二）—— Logistic 回归的 Loss 函数为什么长成那个样子？">
 <meta name="twitter:description" content="由好友 史博士 关于 Softmax 的问题而想到的一些脑洞。本文讲解了 Logistic 模型的 Loss 函数的来源。以及想到的一些凸优化的知识。">
@@ -326,7 +326,7 @@
     <link itemprop="mainEntityOfPage" href="https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sakigami 杨">
+      <meta itemprop="name" content="Sakigami 杨（Ai兔兔）">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/uploads/avatar.png">
     </span>
@@ -421,8 +421,8 @@
       
 
       
-        <h1 id="Logistic-回归的-Loss-函数为什么长成那个样子？"><a href="#Logistic-回归的-Loss-函数为什么长成那个样子？" class="headerlink" title="Logistic 回归的 Loss 函数为什么长成那个样子？"></a>Logistic 回归的 Loss 函数为什么长成那个样子？</h1><p>一般人大概都能想得到，Logistic 回归的 Loss 函数应该是下面的样子。<br>（以下是正常的版本。）<br>$$<br>\begin{aligned}<br>Loss(h_{\theta}, \, y) &amp;=\frac{1}{n} \sum_{i=1}^{n} \frac{1}{2}[h_{\theta}(x_{i})-y_{i}]^{2} \<br>&amp; =\frac{1}{2}\left(\frac{1}{1+e^{-\theta^{\mathsf{T}}x}}-y\right)^{2}<br>\end{aligned}<br>$$<br>这里 $1/2$ 是为了求导后方便计算的系数，不重要。<br>$n$ 是样本数量。<br>括号里面就是分错的部分了，很容易理解。</p>
-<p>但实际上，它的 Loss 函数长成了这个样子：<br>$$<br>Loss =<br>\left { \begin{aligned}<br>&amp; -\log (h_{\theta}(x)) &amp; \qquad \text{if }y=1 \<br>&amp; -\log (1-h_{\theta}(x)) &amp; \qquad \text{if }y=0<br>\end{aligned} \right.<br>$$<br>为什么呢？</p>
+        <h1 id="Logistic-回归的-Loss-函数为什么长成那个样子？"><a href="#Logistic-回归的-Loss-函数为什么长成那个样子？" class="headerlink" title="Logistic 回归的 Loss 函数为什么长成那个样子？"></a>Logistic 回归的 Loss 函数为什么长成那个样子？</h1><p>一般人大概都能想得到，Logistic 回归的 Loss 函数应该是下面的样子。<br>（以下是正常的版本。）<br>$$<br>\begin{aligned}<br>Loss(h_{\theta}, \, y) &amp;=\frac{1}{n} \sum_{i=1}^{n} \frac{1}{2}[h_{\theta}(x_{i})-y_{i}]^{2} \\<br>&amp; =\frac{1}{2}\left(\frac{1}{1+e^{-\theta^{\mathsf{T}}x}}-y\right)^{2}<br>\end{aligned}<br>$$<br>这里 $1/2$ 是为了求导后方便计算的系数，不重要。<br>$n$ 是样本数量。<br>括号里面就是分错的部分了，很容易理解。</p>
+<p>但实际上，它的 Loss 函数长成了这个样子：<br>$$<br>Loss =<br>\left { \begin{aligned}<br>&amp; -\log (h_{\theta}(x)) &amp; \qquad \text{if }y=1 \\<br>&amp; -\log (1-h_{\theta}(x)) &amp; \qquad \text{if }y=0<br>\end{aligned} \right.<br>$$<br>为什么呢？</p>
 <p>答案是：<strong>保证凸性</strong>。<br>第一个 Loss 函数不是凸函数，而取过了 $-\log$ 并且分段以后就变成凸函数了。</p>
 <h1 id="凸优化-及-梯度下降法"><a href="#凸优化-及-梯度下降法" class="headerlink" title="凸优化 及 梯度下降法"></a>凸优化 及 梯度下降法</h1><p>几乎每一个机器学习问题都是一个优化问题。<br>而在所有优化问题当中，有一类优化问题是人们非常关心的，并希望每一个优化问题都能转化为这样的优化问题的，那就是凸优化问题（convex optimization）。</p>
 <p>一类常见的凸优化问题就是目标函数是凸函数，并且边界条件是仿射集的优化问题。如：支持向量机（SVM） 、 感知机（Perceptron）等等。<br>为什么要研究凸优化呢？因为凸函数有一个优点——全局最小值。<br>它可以让人们明确一个信念，即：所研究的问题一定是可学习的，而且一定在全局有一个固定结果，并不会踩到某个局部极值从而达不到最优。</p>
@@ -433,7 +433,7 @@
 <h1 id="扩展：Softmax-模型的-Loss-函数——-Log-Sum-Exp-函数"><a href="#扩展：Softmax-模型的-Loss-函数——-Log-Sum-Exp-函数" class="headerlink" title="扩展：Softmax 模型的 Loss 函数—— Log-Sum-Exp 函数"></a>扩展：Softmax 模型的 Loss 函数—— Log-Sum-Exp 函数</h1><p>这里就不给出函数的形式了，大家请自行 wiki。<br>总之来说，是 Logistic 模型的 Loss 函数的高阶扩展。也是一个带有一堆 $\log$ 、$\exp$ 还要求加和的式子。</p>
 <p>它的凸性可以证明如下：</p>
 <p>首先，我们考虑函数 $f(x) = \log (\sum \alpha_{i} e^{x_{i}})$ ，我们证明它是凸的。然后根据凸函数的性质 Affine composition 来导出 Log-Sum-Exp 函数是凸的。<br>（Affine composition 指的是：$f(x)$ 是凸的 $\Leftrightarrow f(Ax+b)$ 也是凸的，即对自变量做仿射变换不影响凸性。）</p>
-<p>考虑：<br>$$<br>\begin{aligned}<br>\nabla_{i} f &amp; = e^{x_{i}}\Big/\sum_{k} e^{x_{k}}  &amp; \<br>\nabla_{i}^{2} f &amp; = \mathrm{diag}(z)-zz^{\mathsf{T}}, &amp; \quad z_{i} = e^{x_{i}}\Big/\sum_{k} e^{x_{k}}<br>\end{aligned}<br>$$<br>显而易见，$\nabla_{i}^{2} f$ 是对角优势矩阵（diagonally dominant matrix）。<br>（对角优势矩阵：对矩阵 $A$ 的所有对角元，有 $A_{ii} \ge \sum_{i \ne j} |A_{ij}|$ 。）<br>因此，$\nabla_{i}^{2} f$ 是半正定的（positive semidefinite matrix，p.s.d）。<br>所以得到 Log-Sum-Exp 函数是凸的。</p>
+<p>考虑：<br>$$<br>\begin{aligned}<br>\nabla_{i} f &amp; = e^{x_{i}}\Big/\sum_{k} e^{x_{k}}  &amp; \\<br>\nabla_{i}^{2} f &amp; = \mathrm{diag}(z)-zz^{\mathsf{T}}, \, z_{i} = e^{x_{i}}\Big/\sum_{k} e^{x_{k}}<br>\end{aligned}<br>$$<br>显而易见，$\nabla_{i}^{2} f$ 是对角优势矩阵（diagonally dominant matrix）。<br>（对角优势矩阵：对矩阵 $A$ 的所有对角元，有 $A_{ii} \ge \sum_{i \ne j} |A_{ij}|$ 。）<br>因此，$\nabla_{i}^{2} f$ 是半正定的（positive semidefinite matrix，p.s.d）。<br>所以得到 Log-Sum-Exp 函数是凸的。</p>
 
       
     </div>
@@ -548,8 +548,8 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Sakigami 杨">
-          <p class="site-author-name" itemprop="name">Sakigami 杨</p>
+          <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Sakigami 杨（Ai兔兔）">
+          <p class="site-author-name" itemprop="name">Sakigami 杨（Ai兔兔）</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
            
@@ -657,7 +657,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Sakigami 杨</span>
+  <span class="author" itemprop="copyrightHolder">Sakigami 杨（Ai兔兔）</span>
 </div>
 
 
@@ -1179,7 +1179,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
