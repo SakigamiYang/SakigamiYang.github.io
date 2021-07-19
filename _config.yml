@@ -11,7 +11,7 @@ language: zh-Hans
 timezone: Asia/Shanghai
 
 # Avatar
-avatar: /uploads/avatar.png
+avatar: /uploads/me.jpeg
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
