@@ -17,7 +17,7 @@ description: 由好友 史博士 关于 Softmax 的问题而想到的一些脑�
 （以下是正常的版本。）
 $$
 \begin{aligned}
-Loss(h_{\theta}, \, y) &=\frac{1}{n} \sum_{i=1}^{n} \frac{1}{2}[h_{\theta}(x_{i})-y_{i}]^{2} \\
+Loss(h_{\theta}, \, y) &=\frac{1}{n} \sum_{i=1}^{n} \frac{1}{2}[h_{\theta}(x_{i})-y_{i}]^{2} \\\\
 & =\frac{1}{2}\left(\frac{1}{1+e^{-\theta^{\mathsf{T}}x}}-y\right)^{2}
 \end{aligned}
 $$
@@ -29,7 +29,7 @@ $n$ 是样本数量。
 $$
 Loss = 
 \left \{ \begin{aligned}
-& -\log (h_{\theta}(x)) & \qquad \text{if }y=1 \\
+& -\log (h_{\theta}(x)) & \qquad \text{if }y=1 \\\\
 & -\log (1-h_{\theta}(x)) & \qquad \text{if }y=0
 \end{aligned} \right.
 $$
@@ -77,8 +77,8 @@ $$
 考虑：
 $$
 \begin{aligned}
-\nabla_{i} f & = e^{x_{i}}\Big/\sum_{k} e^{x_{k}}  & \\
-\nabla_{i}^{2} f & = \mathrm{diag}(z)-zz^{\mathsf{T}}, & \quad z_{i} = e^{x_{i}}\Big/\sum_{k} e^{x_{k}}
+\nabla_{i} f & = e^{x_{i}}\Big/\sum_{k} e^{x_{k}}  & \\\\
+\nabla_{i}^{2} f & = \mathrm{diag}(z)-zz^{\mathsf{T}}, \, z_{i} = e^{x_{i}}\Big/\sum_{k} e^{x_{k}}
 \end{aligned}
 $$
 显而易见，$\nabla_{i}^{2} f$ 是对角优势矩阵（diagonally dominant matrix）。
