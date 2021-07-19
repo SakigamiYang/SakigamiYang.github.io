@@ -118,12 +118,12 @@
 <meta property="og:site_name" content="机器不太会学习">
 <meta property="og:description" content="本文从数学角度介绍了再生核希尔伯特空间。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://sakigami-yang.me/.me//linear_space.png">
-<meta property="og:updated_time" content="2021-07-19T13:21:21.733Z">
+<meta property="og:image" content="https://sakigami-yang.me/2017/08/13/about-kernel-02/linear_space.png">
+<meta property="og:updated_time" content="2021-07-19T13:24:32.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="说一说核方法（二）——数学角度简介（掉粉文）">
 <meta name="twitter:description" content="本文从数学角度介绍了再生核希尔伯特空间。">
-<meta name="twitter:image" content="https://sakigami-yang.me/.me//linear_space.png">
+<meta name="twitter:image" content="https://sakigami-yang.me/2017/08/13/about-kernel-02/linear_space.png">
 
 
 
@@ -423,7 +423,7 @@
       
         <p><strong>泛函分析（functional analysis）</strong>主要研究的是函数空间（function space），也就是说这个空间中所有的点（元素）都是函数。</p>
 <p>先介绍几个概念，我们暂时只讨论由线性空间发展出来的概念，因为线性空间有很多很好的性质。</p>
-<p><img src="/.me//linear_space.png" alt="Linear space"></p>
+<p><img src="//sakigami-yang.me/2017/08/13/about-kernel-02/linear_space.png" alt="Linear space"></p>
 <h1 id="线性空间"><a href="#线性空间" class="headerlink" title="线性空间"></a>线性空间</h1><p>线性空间（linear space）是定义了数乘和加法的空间。所以我们可以找到一组基底（basis），然后通过这一组基底的线性组合来得到空间中的所有点。<br>举个例子，二次函数空间，基底就可以定义为 $\lbrace 1, x, x^{2} \rbrace$ ，这个空间中任意的函数 $f(x)$ 都可以表示为 $f(x) = \alpha_{1} \cdot 1 + \alpha_{2} \cdot x + \alpha_{3} \cdot x^{2}$ ，所以我们可以说 $f(x)$ 在这组基底下的坐标是 $\lbrace \alpha_{1}, \alpha_{2}, \alpha_{3} \rbrace$ 。（请自行想象三维空间中，三个维度的坐标不是 $\lbrace x, y, z \rbrace$ 。）<br>当然基底也可以定义为 $\lbrace 1, x+1, (x+1)^{2} \rbrace$ ，但是计算上会增大难度。所以我们可以看出来基底只要是线性不相关的就行了。那么基底中有 $n$ 个元素的话，我们就叫这个空间是 $n$ 维的。<br>一般来讲，选用的基底都是正交基（orthogonal basis），也就是基底中的任意两个元素的内积为 0。</p>
 <h1 id="线性度量空间"><a href="#线性度量空间" class="headerlink" title="线性度量空间"></a>线性度量空间</h1><p>线性度量空间（metric linear space）是在线性空间中定义了<strong>距离（metric）</strong>的空间。<br>距离的定义必须满足如下三个条件：</p>
 <ol>
