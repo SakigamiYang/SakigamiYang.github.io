@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/</loc>
+    <lastmod>2021-07-19</lastmod>
+  </url>
+  <url>
     <loc>https://sakigami-yang.me/2017/08/13/about-kernel-02/</loc>
     <lastmod>2021-07-19</lastmod>
   </url>
@@ -18,10 +22,6 @@
   </url>
   <url>
     <loc>https://sakigami-yang.me/2017/08/10/thinking-from-softmax-01/</loc>
-    <lastmod>2021-07-19</lastmod>
-  </url>
-  <url>
-    <loc>https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/</loc>
     <lastmod>2021-07-19</lastmod>
   </url>
   <url>
