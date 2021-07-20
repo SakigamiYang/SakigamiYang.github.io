@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Hiragino Sans GB:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GC,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="一个简单的垃圾回收代码，揭示了垃圾回收的基本原理。">
+<meta name="keywords" content="GC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个简单的垃圾回收代码">
+<meta property="og:url" content="https://sakigami-yang.me/2021/07/20/baby-gc/index.html">
+<meta property="og:site_name" content="机器不太会学习">
+<meta property="og:description" content="一个简单的垃圾回收代码，揭示了垃圾回收的基本原理。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-20T14:29:13.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个简单的垃圾回收代码">
+<meta name="twitter:description" content="一个简单的垃圾回收代码，揭示了垃圾回收的基本原理。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://sakigami-yang.me/2021/07/20/baby-gc/">
+
+
+
+
+
+  <title>一个简单的垃圾回收代码 | 机器不太会学习</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">机器不太会学习</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">机器遗忘与人工智障</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sakigami-yang.me/2021/07/20/baby-gc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sakigami 杨（Ai兔兔）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/me.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="机器不太会学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">一个简单的垃圾回收代码</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T21:37:01+08:00">
+                2021-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Develop/" itemprop="url" rel="index">
+                    <span itemprop="name">Develop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o">您是第</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>位阅读该文章的人类
+            </span>
+          
+
+          
+
+          
+              <div class="post-description">
+                  一个简单的垃圾回收代码，揭示了垃圾回收的基本原理。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="再利用"><a href="#再利用" class="headerlink" title="再利用"></a>再利用</h1><p>垃圾回收（Garbage Collection，GC）的基本思想是，编程语言通过底层的操作让你感觉内存是无穷无尽的。但我们都知道内存是有限的，所以要达到这一点就需要将不再被使用的内存（至少看起来是这样）回收成未分配状态。在此之中，最重要的就是<strong>安全地</strong>辨认所谓的“不再被使用”，因为如果你的程序能有机会访问到被抹除为随机值的内存块，那将是很危险的事情。</p>
+<p>为了识别能否回收，最简单的思路就是判断一个内存块是否还被至少一个引用指向它。基于此观点，“仍被使用”就可以简单地被认为是：</p>
+<ol>
+<li>正在被某变量引用的对象是“仍被使用”的。</li>
+<li>被其它对象引用的对象是“仍被使用”的。</li>
+</ol>
+<p>当然，第二条意味着它是一个递归，即，如果某变量指向对象 A ，且对象 A 引用了对象 B，那么 B 也是“被使用的”，因为 B 可以从 A 那里被找到。</p>
+<h1 id="标记-清除（Marking-and-Sweeping）"><a href="#标记-清除（Marking-and-Sweeping）" class="headerlink" title="标记-清除（Marking and Sweeping）"></a>标记-清除（Marking and Sweeping）</h1><p>垃圾回收有很多算法，其中最简单的就是标记-清除算法，该算法由 John McCarthy 发明（此人也发明了 Lisp ）。它的细节是这样的：</p>
+<ol>
+<li>从根节点开始，遍历整个对象依赖图。对每一个能到达的对象，设定一个标记 bit 为 true。</li>
+<li>遍历后，删除所有未被标记的对象。</li>
+</ol>
+<p>可能会有人说准确的垃圾回收需要更复杂的算法，比如至少要分代回收等，不过作为一个示例我想仅仅从最简单的情况开始。</p>
+<h1 id="对象对儿"><a href="#对象对儿" class="headerlink" title="对象对儿"></a>对象对儿</h1><p>我不想为这个垃圾回收示例写一个复杂的虚拟机（Virtual Machine，VM），所以我们采用一个不碰触语法解析、字节码等这些麻烦事情的方法，定义一个仅含两种类型对象的枚举：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line">  OBJ_INT,</span><br><span class="line">  OBJ_PAIR</span><br><span class="line">&#125; ObjectType;</span><br></pre></td></tr></table></figure>
+<p>其中，这个 OBJ_PAIR 可以包含一对儿任意类型，两个 INT ，一个 INT 一个 PAIR ，或者两个 PAIR 都可以。</p>
+<p>细心的朋友们（或接触过函数式编程朋友们）可以发现， PAIR 类型其实是一个可以被定制成很多东西的类型，比如 LIST 类型。事实上，一个 LIST 就可以看做是一个递归 PAIR：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LIST = (LIST 首项, LIST 剩余项)</span><br><span class="line">LIST 剩余项 = (LIST 剩余项首项, LIST 剩余项的剩余项)</span><br></pre></td></tr></table></figure>
+<p>等等。所以能够处理 PAIR 类型其实就意味着你有能力处理很多其它类型。</p>
+<p>根据这两种类型，我们定义一个结构体，让两种类型共享一个值，从而达到模拟 VM 中一个变量只能对类型进行二选一的特性。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">sObject</span> &#123;</span></span><br><span class="line">  ObjectType type;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">union</span> &#123;</span><br><span class="line">    <span class="comment">/* OBJ_INT */</span></span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* OBJ_PAIR */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">sObject</span>* <span class="title">head</span>;</span></span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">sObject</span>* <span class="title">tail</span>;</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125; Object;</span><br></pre></td></tr></table></figure>
+<h1 id="一个小型-VM"><a href="#一个小型-VM" class="headerlink" title="一个小型 VM"></a>一个小型 VM</h1><p>有了定义对象的方法，我们就可以做一个小型 VM 了，这个 VM 只包含一个有限长的对象栈。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> STACK_MAX 256</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  Object* <span class="built_in">stack</span>[STACK_MAX];</span><br><span class="line">  <span class="keyword">int</span> stackSize;</span><br><span class="line">&#125; VM;</span><br></pre></td></tr></table></figure>
+<p>紧接着，我们需要定义 new 函数、push 和 pop 函数，这些都是基本操作。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">VM* <span class="title">newVM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  VM* vm = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(VM));</span><br><span class="line">  vm-&gt;stackSize = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> vm;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(VM* vm, Object* value)</span> </span>&#123;</span><br><span class="line">  assert(vm-&gt;stackSize &lt; STACK_MAX, <span class="string">"Stack overflow!"</span>);</span><br><span class="line">  vm-&gt;<span class="built_in">stack</span>[vm-&gt;stackSize++] = value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Object* <span class="title">pop</span><span class="params">(VM* vm)</span> </span>&#123;</span><br><span class="line">  assert(vm-&gt;stackSize &gt; <span class="number">0</span>, <span class="string">"Stack underflow!"</span>);</span><br><span class="line">  <span class="keyword">return</span> vm-&gt;<span class="built_in">stack</span>[--vm-&gt;stackSize];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义如何在 VM 里分配空间给一个对象（“变量”）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Object* <span class="title">newObject</span><span class="params">(VM* vm, ObjectType type)</span> </span>&#123;</span><br><span class="line">  Object* object = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Object));</span><br><span class="line">  object-&gt;type = type;</span><br><span class="line">  <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意到 PAIR 类型是一种复合对象，所以我们采用比较栈风格的方法来创造 PAIR 对象，即 PAIR 对象是由弹出栈顶两个对象再怼进来一个新 PAIR 对象做的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushInt</span><span class="params">(VM* vm, <span class="keyword">int</span> intValue)</span> </span>&#123;</span><br><span class="line">  Object* object = newObject(vm, OBJ_INT);</span><br><span class="line">  object-&gt;value = intValue;</span><br><span class="line">  push(vm, object);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Object* <span class="title">pushPair</span><span class="params">(VM* vm)</span> </span>&#123;</span><br><span class="line">  Object* object = newObject(vm, OBJ_PAIR);</span><br><span class="line">  object-&gt;tail = pop(vm);</span><br><span class="line">  object-&gt;head = pop(vm);</span><br><span class="line"></span><br><span class="line">  push(vm, object);</span><br><span class="line">  <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到此为止，VM 就大功告成了。</p>
+<h1 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h1><p>为了标记，我们需要在对象中放置一个标志位。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">sObject</span> &#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> marked;</span><br><span class="line">  <span class="comment">/* Previous stuff... */</span></span><br><span class="line">&#125; Object;</span><br></pre></td></tr></table></figure>
+<p>而刚刚所说的标记-清理的第一步，就是遍历 VM 中栈的所有对象并进行标记。注意，PAIR 是个复合对象，如果一个 PAIR 对象被标记了，其引用的对象也应该被标记。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mark</span><span class="params">(Object* object)</span> </span>&#123;</span><br><span class="line">  object-&gt;marked = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (object-&gt;type == OBJ_PAIR) &#123;</span><br><span class="line">    mark(object-&gt;head);</span><br><span class="line">    mark(object-&gt;tail);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">markAll</span><span class="params">(VM* vm)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vm-&gt;stackSize; i++) &#123;</span><br><span class="line">    mark(vm-&gt;<span class="built_in">stack</span>[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这个代码有个问题，如果对象的引用图上有圈，那么就会造成死循环，所以我们改一下 mark 函数为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mark</span><span class="params">(Object* object)</span> </span>&#123;</span><br><span class="line">  <span class="comment">/* If already marked, we're done. Check this first</span></span><br><span class="line"><span class="comment">     to avoid recursing on cycles in the object graph. */</span></span><br><span class="line">  <span class="keyword">if</span> (object-&gt;marked) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  object-&gt;marked = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (object-&gt;type == OBJ_PAIR) &#123;</span><br><span class="line">    mark(object-&gt;head);</span><br><span class="line">    mark(object-&gt;tail);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="清理"><a href="#清理" class="headerlink" title="清理"></a>清理</h1><p>标记-清理的第二步就是清理，这里一上来就有一个问题，即按照定义，未标记的对象应该是不可达的，那既然是不可达的我们也没法知道它在哪儿，从而无法回收它。</p>
+<p>所以在这里我们就需要 C 语言里最强也是最恶心的东西了——指针。</p>
+<p>我们用一个小技巧就是在每一个对象中记录下一个被分配的对象的指针，同时在 VM 里记住第一个被分配的对象是谁：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">sObject</span> &#123;</span></span><br><span class="line">  <span class="comment">/* The next object in the list of all objects. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sObject</span>* <span class="title">next</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Previous stuff... */</span></span><br><span class="line">&#125; Object;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  <span class="comment">/* The first object in the list of all objects. */</span></span><br><span class="line">  Object* firstObject;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Previous stuff... */</span></span><br><span class="line">&#125; VM;</span><br></pre></td></tr></table></figure>
+<p>同时我们稍稍修改 VM 的 new 函数，初始化时让 firstObject 指向 NULL。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Object* <span class="title">newObject</span><span class="params">(VM* vm, ObjectType type)</span> </span>&#123;</span><br><span class="line">  Object* object = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Object));</span><br><span class="line">  object-&gt;type = type;</span><br><span class="line">  object-&gt;marked = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Insert it into the list of allocated objects. */</span></span><br><span class="line">  object-&gt;next = vm-&gt;firstObject;</span><br><span class="line">  vm-&gt;firstObject = object;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样做我们就可以用指针记住要被删除的对象，还记得 Linux 内核里链表结构中指针的指针这一技巧吗？</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sweep</span><span class="params">(VM* vm)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Object** object = &amp;vm-&gt;firstObject;</span><br><span class="line">  <span class="keyword">while</span> (*object) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!(*object)-&gt;marked) &#123;</span><br><span class="line">      <span class="comment">/* This object wasn't reached, so remove it from the list</span></span><br><span class="line"><span class="comment">         and free it. */</span></span><br><span class="line">      Object* unreached = *object;</span><br><span class="line"></span><br><span class="line">      *object = unreached-&gt;next;</span><br><span class="line">      <span class="built_in">free</span>(unreached);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">/* This object was reached, so unmark it (for the next GC)</span></span><br><span class="line"><span class="comment">         and move on to the next. */</span></span><br><span class="line">      (*object)-&gt;marked = <span class="number">0</span>;</span><br><span class="line">      object = &amp;(*object)-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们可以完成垃圾回收了，先标记再清除即可：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gc</span><span class="params">(VM* vm)</span> </span>&#123;</span><br><span class="line">  markAll(vm);</span><br><span class="line">  sweep(vm);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="更多的问题"><a href="#更多的问题" class="headerlink" title="更多的问题"></a>更多的问题</h1><p>怎么判断 VM 低内存呢？如果计算垃圾回收的时点？</p>
+<p>这些问题没有特别固定的解决办法，在我的例子里，添加一个对对象的计数并给定一个垃圾回收底线即可：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  <span class="comment">/* The total number of currently allocated objects. */</span></span><br><span class="line">  <span class="keyword">int</span> numObjects;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* The number of objects required to trigger a GC. */</span></span><br><span class="line">  <span class="keyword">int</span> maxObjects;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Previous stuff... */</span></span><br><span class="line">&#125; VM;</span><br><span class="line"></span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line"><span class="function">VM* <span class="title">newVM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">/* Previous stuff... */</span></span><br><span class="line"></span><br><span class="line">  vm-&gt;numObjects = <span class="number">0</span>;</span><br><span class="line">  vm-&gt;maxObjects = INITIAL_GC_THRESHOLD;</span><br><span class="line">  <span class="keyword">return</span> vm;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line"><span class="function">Object* <span class="title">newObject</span><span class="params">(VM* vm, ObjectType type)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (vm-&gt;numObjects == vm-&gt;maxObjects) gc(vm);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Create object... */</span></span><br><span class="line"></span><br><span class="line">  vm-&gt;numObjects++;</span><br><span class="line">  <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gc</span><span class="params">(VM* vm)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> numObjects = vm-&gt;numObjects;</span><br><span class="line"></span><br><span class="line">  markAll(vm);</span><br><span class="line">  sweep(vm);</span><br><span class="line"></span><br><span class="line">  vm-&gt;maxObjects = vm-&gt;numObjects * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简单地说，我用一个不断扩大成 2 倍的数字来记录，比如：第一次有 8 个对象就垃圾回收；第二次的话，我就在判断“系统中很轻易的就能达到 8 个对象”的前提下，16 个对象再做回收。以此类推。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>这样就 OK 了，我们完成了一个简单的垃圾回收模块。它很简单，但是足以说明问题。</p>
+<p>全部的代码请参考我的 GitHub：<a href="https://github.com/SakigamiYang/baby-gc" target="_blank" rel="noopener">SakigamiYang/baby-gc</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GC/" rel="tag"># GC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/12/alterable-vs-permanent/" rel="next" title="变与不变">
+                <i class="fa fa-chevron-left"></i> 变与不变
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/uploads/me.jpeg" alt="Sakigami 杨（Ai兔兔）">
+          <p class="site-author-name" itemprop="name">Sakigami 杨（Ai兔兔）</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://txshi-mt.com/" title="Dr. Shi" target="_blank" rel="nofollow">Dr. Shi</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#再利用"><span class="nav-number">1.</span> <span class="nav-text">再利用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标记-清除（Marking-and-Sweeping）"><span class="nav-number">2.</span> <span class="nav-text">标记-清除（Marking and Sweeping）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象对儿"><span class="nav-number">3.</span> <span class="nav-text">对象对儿</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个小型-VM"><span class="nav-number">4.</span> <span class="nav-text">一个小型 VM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标记"><span class="nav-number">5.</span> <span class="nav-text">标记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#清理"><span class="nav-number">6.</span> <span class="nav-text">清理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多的问题"><span class="nav-number">7.</span> <span class="nav-text">更多的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">8.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sakigami 杨（Ai兔兔）</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="nofollow">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站共有</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位AIer造访
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">您是第</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      位热爱AI的人类
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
