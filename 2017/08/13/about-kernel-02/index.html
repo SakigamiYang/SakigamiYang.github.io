@@ -118,12 +118,12 @@
 <meta property="og:site_name" content="机器不太会学习">
 <meta property="og:description" content="本文从数学角度介绍了再生核希尔伯特空间。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://sakigami-yang.me/2017/08/13/about-kernel-02/linear_space.png">
-<meta property="og:updated_time" content="2021-07-19T13:24:32.449Z">
+<meta property="og:image" content="https://sakigami-yang.me/.me//linear_space.png">
+<meta property="og:updated_time" content="2021-07-20T15:08:33.828Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="说一说核方法（二）——数学角度简介（掉粉文）">
 <meta name="twitter:description" content="本文从数学角度介绍了再生核希尔伯特空间。">
-<meta name="twitter:image" content="https://sakigami-yang.me/2017/08/13/about-kernel-02/linear_space.png">
+<meta name="twitter:image" content="https://sakigami-yang.me/.me//linear_space.png">
 
 
 
@@ -423,7 +423,7 @@
       
         <p><strong>泛函分析（functional analysis）</strong>主要研究的是函数空间（function space），也就是说这个空间中所有的点（元素）都是函数。</p>
 <p>先介绍几个概念，我们暂时只讨论由线性空间发展出来的概念，因为线性空间有很多很好的性质。</p>
-<p><img src="//sakigami-yang.me/2017/08/13/about-kernel-02/linear_space.png" alt="Linear space"></p>
+<p><img src="/.me//linear_space.png" alt="Linear space"></p>
 <h1 id="线性空间"><a href="#线性空间" class="headerlink" title="线性空间"></a>线性空间</h1><p>线性空间（linear space）是定义了数乘和加法的空间。所以我们可以找到一组基底（basis），然后通过这一组基底的线性组合来得到空间中的所有点。<br>举个例子，二次函数空间，基底就可以定义为 $\lbrace 1, x, x^{2} \rbrace$ ，这个空间中任意的函数 $f(x)$ 都可以表示为 $f(x) = \alpha_{1} \cdot 1 + \alpha_{2} \cdot x + \alpha_{3} \cdot x^{2}$ ，所以我们可以说 $f(x)$ 在这组基底下的坐标是 $\lbrace \alpha_{1}, \alpha_{2}, \alpha_{3} \rbrace$ 。（请自行想象三维空间中，三个维度的坐标不是 $\lbrace x, y, z \rbrace$ 。）<br>当然基底也可以定义为 $\lbrace 1, x+1, (x+1)^{2} \rbrace$ ，但是计算上会增大难度。所以我们可以看出来基底只要是线性不相关的就行了。那么基底中有 $n$ 个元素的话，我们就叫这个空间是 $n$ 维的。<br>一般来讲，选用的基底都是正交基（orthogonal basis），也就是基底中的任意两个元素的内积为 0。</p>
 <h1 id="线性度量空间"><a href="#线性度量空间" class="headerlink" title="线性度量空间"></a>线性度量空间</h1><p>线性度量空间（metric linear space）是在线性空间中定义了<strong>距离（metric）</strong>的空间。<br>距离的定义必须满足如下三个条件：</p>
 <ol>
@@ -453,7 +453,9 @@
 <li>傅里叶级数展开（Fourier series）：将一个函数用 $\lbrace 1, \cos x, \sin x, \cos 2x, \sin 2x, \cdots \rbrace$ 作为基底表示的一个空间。</li>
 </ol>
 <h1 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h1><p>终于到主题了，写的手都酸了……</p>
-<p>一般的欧式空间中，我们可以定义一个 $n \times n$ 矩阵的特征值和特征向量。<br>$$<br>Ax=\lambda x<br>$$<br>考虑一个矩阵的列空间，当这个矩阵可以进行特征值分解的时候，其特征向量就构成了这个 $n$ 维空间的一组基底。</p>
+<p>一般的欧式空间中，我们可以定义一个 $n \times n$ 矩阵的特征值和特征向量。</p>
+<script type="math/tex; mode=display">
+Ax=\lambda x</script><p>考虑一个矩阵的列空间，当这个矩阵可以进行特征值分解的时候，其特征向量就构成了这个 $n$ 维空间的一组基底。</p>
 <p>现在我们把这个概念推广到函数空间。</p>
 <p>我们把每个函数 $f(x)$ 看作一个无穷维的向量，然后定义一个函数空间中无穷维的矩阵 $K(x, y)$ ，如果它满足：</p>
 <ol>
@@ -461,10 +463,37 @@
 <li>对称性：$K(x, y) = K(y, x)$ 。</li>
 </ol>
 <p>我们就把它称作<strong>核函数（kernel function）</strong>。</p>
-<p>和特征值与特征向量的概念相似，存在特征值 $\lambda$ 和特征函数 $\psi(x)$ 。满足：<br>$$<br>\int K(x, y)\psi(x) \mathrm{d}x = \lambda \psi (y)<br>$$<br>对于不同的特征值 $\lambda_{1}$ 、 $\lambda_{2}$ ，对应不同的特征函数 $\psi_{1}(x)$ 、 $\psi_{2}(x)$ ，很容易得到：<br>$$<br>\begin{aligned}<br>\int \lambda_1 \psi_{1}(x) \psi_{2}(x) \mathrm{d}x &amp;= \iint K(y, x) \psi_{1}(y) \mathrm{d}y\,\psi_{2}(x)\mathrm{d}x \<br>&amp;= \iint K(y, x) \psi_{2}(x) \mathrm{d}x\,\psi_{1}(y)\mathrm{d}y \<br>&amp;= \int \lambda_2 \psi_{2}(y) \psi_{1}(y) \mathrm{d}y \<br>&amp;= \int \lambda_2 \psi_{2}(x) \psi_{1}(x) \mathrm{d}x<br>\end{aligned}<br>$$<br>因此，<br>$$<br>\langle \psi_{1}, \psi_{2} \rangle = \int \psi_{1}(x) \psi_{2}(x) \mathrm{d}x = 0<br>$$<br>所以我们找到了一个可以生成这个空间的矩阵 $K$，一组无穷多个特征值 $\lbrace \lambda_{i} \rbrace_{i=1}^{\infty}$ ，和一组无穷多个元素的正交基 $\lbrace \psi_{i} \rbrace_{i=1}^{\infty}$ 。</p>
-<h1 id="再生核希尔伯特空间"><a href="#再生核希尔伯特空间" class="headerlink" title="再生核希尔伯特空间"></a>再生核希尔伯特空间</h1><p>如果我们把 $\lbrace \sqrt{\lambda_{i}}\psi_{i} \rbrace_{i=1}^{\infty}$ 当成一组正交基来生成一个希尔伯特空间 $\mathcal{H}$ 。则该空间中的所有函数都能表示为这组正交基的线性组合。<br>$$<br>f = \sum_{i=1}^{\infty} f_{i}\sqrt{\lambda_{i}}\psi_{i}<br>$$<br>于是我们就可以把函数 $f$ ，看作 $\mathcal{H}$ 中的一个向量 $f = (f_{1}, f_{2}, \cdots)<em>{\mathcal{H}}^{\mathsf{T}}$ 。<br>对于另外一个函数 $g = (g</em>{1}, g_{2}, \cdots)<em>{\mathcal{H}}^{\mathsf{T}}$ ，我们有：<br>$$<br>\langle f, g \rangle</em>{\mathcal{H}} = \sum_{i=1}^{\infty}f_{i}g_{i}<br>$$<br>有了这个内积，我们就可以把核函数看成一种内积形式了，即：<br>$$<br>K(x, \cdot) = \sum_{i=0}^{\infty} \lambda_{i}\psi_{i}(x)\psi_{i}(\cdot)<br>$$<br>如果把 $\psi_{i}$ 当成一个算子来看的话，我们就取函数名的一个形式：$K(x, \cdot) = \sum_{i=0}^{\infty} \lambda_{i}\psi_{i}(x)\psi_{i}$ 。<br>所以我们就可以把 $K$ 当作一个向量来看了。<br>$$<br>K(x, \cdot) = (\sqrt{\lambda_{1}}\psi_{1}(x), \sqrt{\lambda_{2}}\psi_{2}(x),\cdots)<em>{\mathcal{H}}^{\mathsf{T}}<br>$$<br>因此，<br>$$<br>\langle K(x, \cdot), K(y, \cdot) \rangle</em>{\mathcal{H}} = \sum_{i=0}^{\infty} \lambda_{i} \psi_{i}(x) \psi_{i}(y) = K(x, y)<br>$$<br>这个性质就叫再生性（reproducing），这个 $\mathcal{H}$ 就叫做再生核希尔伯特空间（reproducing kernel Hilbert space，RKHS）。</p>
+<p>和特征值与特征向量的概念相似，存在特征值 $\lambda$ 和特征函数 $\psi(x)$ 。满足：</p>
+<script type="math/tex; mode=display">
+\int K(x, y)\psi(x) \mathrm{d}x = \lambda \psi (y)</script><p>对于不同的特征值 $\lambda_{1}$ 、 $\lambda_{2}$ ，对应不同的特征函数 $\psi_{1}(x)$ 、 $\psi_{2}(x)$ ，很容易得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\int \lambda_1 \psi_{1}(x) \psi_{2}(x) \mathrm{d}x &= \iint K(y, x) \psi_{1}(y) \mathrm{d}y\,\psi_{2}(x)\mathrm{d}x \\
+&= \iint K(y, x) \psi_{2}(x) \mathrm{d}x\,\psi_{1}(y)\mathrm{d}y \\
+&= \int \lambda_2 \psi_{2}(y) \psi_{1}(y) \mathrm{d}y \\
+&= \int \lambda_2 \psi_{2}(x) \psi_{1}(x) \mathrm{d}x
+\end{aligned}</script><p>因此，</p>
+<script type="math/tex; mode=display">
+\langle \psi_{1}, \psi_{2} \rangle = \int \psi_{1}(x) \psi_{2}(x) \mathrm{d}x = 0</script><p>所以我们找到了一个可以生成这个空间的矩阵 $K$，一组无穷多个特征值 $\lbrace \lambda_{i} \rbrace_{i=1}^{\infty}$ ，和一组无穷多个元素的正交基 $\lbrace \psi_{i} \rbrace_{i=1}^{\infty}$ 。</p>
+<h1 id="再生核希尔伯特空间"><a href="#再生核希尔伯特空间" class="headerlink" title="再生核希尔伯特空间"></a>再生核希尔伯特空间</h1><p>如果我们把 $\lbrace \sqrt{\lambda_{i}}\psi_{i} \rbrace_{i=1}^{\infty}$ 当成一组正交基来生成一个希尔伯特空间 $\mathcal{H}$ 。则该空间中的所有函数都能表示为这组正交基的线性组合。</p>
+<script type="math/tex; mode=display">
+f = \sum_{i=1}^{\infty} f_{i}\sqrt{\lambda_{i}}\psi_{i}</script><p>于是我们就可以把函数 $f$ ，看作 $\mathcal{H}$ 中的一个向量 $f = (f_{1}, f_{2}, \cdots)_{\mathcal{H}}^{\mathsf{T}}$ 。<br>对于另外一个函数 $g = (g_{1}, g_{2}, \cdots)_{\mathcal{H}}^{\mathsf{T}}$ ，我们有：</p>
+<script type="math/tex; mode=display">
+\langle f, g \rangle_{\mathcal{H}} = \sum_{i=1}^{\infty}f_{i}g_{i}</script><p>有了这个内积，我们就可以把核函数看成一种内积形式了，即：</p>
+<script type="math/tex; mode=display">
+K(x, \cdot) = \sum_{i=0}^{\infty} \lambda_{i}\psi_{i}(x)\psi_{i}(\cdot)</script><p>如果把 $\psi_{i}$ 当成一个算子来看的话，我们就取函数名的一个形式：$K(x, \cdot) = \sum_{i=0}^{\infty} \lambda_{i}\psi_{i}(x)\psi_{i}$ 。<br>所以我们就可以把 $K$ 当作一个向量来看了。</p>
+<script type="math/tex; mode=display">
+K(x, \cdot) = (\sqrt{\lambda_{1}}\psi_{1}(x), \sqrt{\lambda_{2}}\psi_{2}(x),\cdots)_{\mathcal{H}}^{\mathsf{T}}</script><p>因此，</p>
+<script type="math/tex; mode=display">
+\langle K(x, \cdot), K(y, \cdot) \rangle_{\mathcal{H}} = \sum_{i=0}^{\infty} \lambda_{i} \psi_{i}(x) \psi_{i}(y) = K(x, y)</script><p>这个性质就叫再生性（reproducing），这个 $\mathcal{H}$ 就叫做再生核希尔伯特空间（reproducing kernel Hilbert space，RKHS）。</p>
 <p>回到我们最初的问题，怎么把一个点映射到一个特征空间上呢？</p>
-<p>定义一个映射：<br>$$<br>\Phi(x) = K(x, \cdot) = (\sqrt{\lambda_{1}}\psi_{1}(x), \sqrt{\lambda_{2}}\psi_{2}(x),\cdots)<em>{\mathcal{H}}^{\mathsf{T}}<br>$$<br>则<br>$$<br>\langle \Phi(x), \Phi(y) \rangle</em>{\mathcal{H}} = \langle K(x, \cdot), K(y, \cdot) \rangle_{\mathcal{H}} = K(x, y)<br>$$<br>虽然我们不知道这个映射的具体形式是什么，但是我们可以知道对于一个对称的正定函数（矩阵） $K$ ，一定存在一个映射 $\Phi$ 和一个特征空间 $\mathcal{H}$ ，使得<br>$$<br>\langle \Phi(x), \Phi(y) \rangle_{\mathcal{H}} = K(x, y)<br>$$<br>这就叫做核方法（kernel trick）。</p>
+<p>定义一个映射：</p>
+<script type="math/tex; mode=display">
+\Phi(x) = K(x, \cdot) = (\sqrt{\lambda_{1}}\psi_{1}(x), \sqrt{\lambda_{2}}\psi_{2}(x),\cdots)_{\mathcal{H}}^{\mathsf{T}}</script><p>则</p>
+<script type="math/tex; mode=display">
+\langle \Phi(x), \Phi(y) \rangle_{\mathcal{H}} = \langle K(x, \cdot), K(y, \cdot) \rangle_{\mathcal{H}} = K(x, y)</script><p>虽然我们不知道这个映射的具体形式是什么，但是我们可以知道对于一个对称的正定函数（矩阵） $K$ ，一定存在一个映射 $\Phi$ 和一个特征空间 $\mathcal{H}$ ，使得</p>
+<script type="math/tex; mode=display">
+\langle \Phi(x), \Phi(y) \rangle_{\mathcal{H}} = K(x, y)</script><p>这就叫做核方法（kernel trick）。</p>
 <p>所以为什么一个核函数都对应一个正定矩阵呢，就是因为它把核函数看成<strong>张成某个 RKHS 的空间的一组基底的线性组合</strong>。</p>
 <h1 id="在-SVM-中的应用"><a href="#在-SVM-中的应用" class="headerlink" title="在 SVM 中的应用"></a>在 SVM 中的应用</h1><p>简单说几句，公式太难写了（笑）。</p>
 <p>我们在使用原始数据 $x$ 的时候发现数据并不可分，所以就寄希望于一个映射 $\Phi(x)$ ，这个映射把低维空间上的数据映射到高维空间，这样数据集就有可能变得可分了。</p>
