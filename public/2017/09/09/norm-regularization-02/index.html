@@ -118,7 +118,7 @@
 <meta property="og:site_name" content="机器不太会学习">
 <meta property="og:description" content="浅说机器学习问题中出现的范数规则化问题，本篇着重讲核范数。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-07-19T13:03:31.697Z">
+<meta property="og:updated_time" content="2021-07-20T15:07:34.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅说范数规范化（二）—— 核范数">
 <meta name="twitter:description" content="浅说机器学习问题中出现的范数规则化问题，本篇着重讲核范数。">
@@ -422,13 +422,42 @@
         <h1 id="矩阵补全（matrix-completion）问题"><a href="#矩阵补全（matrix-completion）问题" class="headerlink" title="矩阵补全（matrix completion）问题"></a>矩阵补全（matrix completion）问题</h1><p>这个问题最早火起来是因为 Netflix 公司悬赏 100 万美金的公开挑战，奖励给能够改进公司现行矩阵补全算法 10% 以上最优胜的队伍。最后的结果是 2009 年 9 月 BellKors Pragmatic 拿走了奖金。</p>
 <p>什么是矩阵补全问题呢？用 Netflix 的数据集来作说明。<br>简单的来说就是一个电影评分系统要根据非常稀疏的现有数据集（一个用户可能只 rate 了几十部电影）来推断整个用户群对不同电影的评分。</p>
 <p>这个问题在推荐系统、图像处理等方面都有广泛的应用。<br>接着，这类问题一般都有隐含的假设，即最终的矩阵应该是低秩（low rank）的。<br>这其实也很好理解，因为我们一般会觉得：1、不同用户对于电影的偏好可以分成聚落（cliques），比如按照观众的年龄来分，年龄相仿的观众口味往往相近；2、电影也可以分成大致几种不同的题材（genres），如：爱情片、动作片、科幻片等。所以会有低秩的特性。<br>简单来说，这个矩阵的行和列会有“协同”的特性，这也是这个问题的别名协同过滤（collaborative filtering）的得名原因。<br>另外，低秩限制会比较实用，人们都比较喜欢得到稀疏解，使得整个问题更有可诠释性。</p>
-<p>所以这个问题的目标函数被定义成下面的样子：<br>$$<br>\begin{aligned}<br>&amp;\mathrm{minimize} \quad  \mathrm{rank}(Z) \<br>&amp;\text{subject to} \quad  \sum_{(i,j):\text{Observed}} (Z_{ij} - X_{ij})^{2} \le \delta<br>\end{aligned} \<br>\text{Impute missing } X_{ij} \text{ with } Z_{ij}<br>$$<br>然而问题来了，这个问题是非凸的，而且这种问题的规模都非常大，没办法在如此庞大的 NP-hard 问题中找到全局最优解。</p>
+<p>所以这个问题的目标函数被定义成下面的样子：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\mathrm{minimize} \quad  \mathrm{rank}(Z) \\
+&\text{subject to} \quad  \sum_{(i,j):\text{Observed}} (Z_{ij} - X_{ij})^{2} \le \delta
+\end{aligned} \\
+\text{Impute missing } X_{ij} \text{ with } Z_{ij}</script><p>然而问题来了，这个问题是非凸的，而且这种问题的规模都非常大，没办法在如此庞大的 NP-hard 问题中找到全局最优解。</p>
 <p>早先时候，人们使用了一些启发式算法。<br>后来人们发现，核范数是矩阵秩的一个很好的凸近似。<br>（原因有点类似与 L1 范数是 L0 范数的一个凸近似。）<br>下面就介绍一下核范数的一些性质。</p>
-<h1 id="核范数"><a href="#核范数" class="headerlink" title="核范数"></a>核范数</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>矩阵 $X$ 的核范数定义为：<br>$$<br>\lVert X \rVert _{\ast} = \mathrm{tr}\left( \sqrt{X^{\mathsf{T}}X} \right)<br>$$<br>显而易见，核范数也可以等价地定义为矩阵特征值的和，考虑 $X$ 的特征值分解 $X=U \Sigma V^{\mathsf{T}}$ 显然有：<br>$$<br>\begin{aligned}<br>\mathrm{tr}\left( \sqrt{X^{\mathsf{T}}X} \right) &amp; =  \mathrm{tr} \left( \sqrt{(U \Sigma V^{\mathsf{T}})^{\mathsf{T}}U \Sigma V^{\mathsf{T}}} \right) \<br>&amp; = \mathrm{tr} \left( \sqrt{V \Sigma^{\mathsf{T}} U^{\mathsf{T}} U \Sigma V^{\mathsf{T}}} \right) \<br>&amp; = \mathrm{tr} \left( \sqrt{V \Sigma^{2} V^{\mathsf{T}}} \right)  \quad \left( \Sigma^{\mathsf{T}} = \Sigma \right) \<br>&amp; = \mathrm{tr} \left( \sqrt{V^{\mathsf{T}} V \Sigma^{2}} \right) \<br>&amp; = \mathrm{tr} (\Sigma)<br>\end{aligned}<br>$$</p>
-<h2 id="凸性的证明"><a href="#凸性的证明" class="headerlink" title="凸性的证明"></a>凸性的证明</h2><p>首先，矩阵诱导范数是凸的，即：令 $ f_x (A) = \lVert Ax \rVert _{p} \quad (p \ge 1) $ ，则 $f_x$ 凸，故 $\lVert A \rVert <em>{p} = \sup\limits</em>{\Vert x \rVert _{p}=1} f_x (A)$ 凸。特别的，$\lVert A \rVert_{2}$ 凸。<br>因为 $\lVert A \rVert_{\ast}$ 和 $\lVert A \rVert_{2}$ 是对偶范数，所以 $\lVert A \rVert_{\ast}$ 凸。（$\lVert A \rVert_{\ast}=\sup \limits_{\lVert X \rVert_{2}=1} \mathrm{tr} \left( A^{\mathsf{T}}X \right)$）</p>
-<h2 id="梯度的求解"><a href="#梯度的求解" class="headerlink" title="梯度的求解"></a>梯度的求解</h2><p>基于上述 S.V.D 的假设，我们可以轻易地得到，<br>$$<br>\frac{\partial \lVert X \rVert_{\ast}}{\partial X} = \frac{\partial \mathrm{tr} (\Sigma)}{\partial X} = \frac{\mathrm{tr} (\partial \Sigma)}{\partial X}<br>$$<br>所以我们需要解出 $\partial \Sigma$ ，<br>考虑 $X=U \Sigma V^{\mathsf{T}}$ ，因此：<br>$$<br>\begin{aligned}<br>&amp; &amp; \partial X &amp; = (\partial U )\Sigma V^{\mathsf{T}} + U (\partial \Sigma) V^{\mathsf{T}} + U \Sigma (\partial V^{\mathsf{T}}) \<br>&amp;\Rightarrow \, &amp; \partial \Sigma &amp; = U^{\mathsf{T}} (\partial X) V - U^{\mathsf{T}} (\partial U) \Sigma - \Sigma (\partial V^{\mathsf{T}}) V \<br>&amp; &amp; &amp; = U^{\mathsf{T}} (\partial X) V \qquad (- U^{\mathsf{T}} (\partial U) \Sigma - \Sigma (\partial V^{\mathsf{T}}) V = 0)<br>\end{aligned}<br>$$<br>所以：<br>$$<br>\frac{\partial \lVert X \rVert_{\ast}}{\partial X} = \frac{\mathrm{tr} (\partial \Sigma)}{\partial X} = \frac{\mathrm{tr} (U^{\mathsf{T}} (\partial X)V)}{\partial X} = \frac{\mathrm{tr} (V U^{\mathsf{T}} (\partial X))}{\partial X} = (V U^{\mathsf{T}})^{\mathsf{T}} = U V^{\mathsf{T}}<br>$$</p>
-<h1 id="低秩问题的近似"><a href="#低秩问题的近似" class="headerlink" title="低秩问题的近似"></a>低秩问题的近似</h1><p>定义了核范数以后，我们就可以将低秩优化问题近似成相应的核范数优化问题了。<br>即：<br>$$<br>\begin{aligned}<br>&amp;\mathrm{minimize} \quad  \lVert Z \rVert_{\ast} \<br>&amp;\text{subject to} \quad  \sum_{(i,j):\text{Observed}} (Z_{ij} - X_{ij})^{2} \le \delta<br>\end{aligned} \<br>\text{Impute missing } X_{ij} \text{ with } Z_{ij}<br>$$</p>
-
+<h1 id="核范数"><a href="#核范数" class="headerlink" title="核范数"></a>核范数</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>矩阵 $X$ 的核范数定义为：</p>
+<script type="math/tex; mode=display">
+\lVert X \rVert _{\ast} = \mathrm{tr}\left( \sqrt{X^{\mathsf{T}}X} \right)</script><p>显而易见，核范数也可以等价地定义为矩阵特征值的和，考虑 $X$ 的特征值分解 $X=U \Sigma V^{\mathsf{T}}$ 显然有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathrm{tr}\left( \sqrt{X^{\mathsf{T}}X} \right) & =  \mathrm{tr} \left( \sqrt{(U \Sigma V^{\mathsf{T}})^{\mathsf{T}}U \Sigma V^{\mathsf{T}}} \right) \\
+& = \mathrm{tr} \left( \sqrt{V \Sigma^{\mathsf{T}} U^{\mathsf{T}} U \Sigma V^{\mathsf{T}}} \right) \\
+& = \mathrm{tr} \left( \sqrt{V \Sigma^{2} V^{\mathsf{T}}} \right)  \quad \left( \Sigma^{\mathsf{T}} = \Sigma \right) \\
+& = \mathrm{tr} \left( \sqrt{V^{\mathsf{T}} V \Sigma^{2}} \right) \\
+& = \mathrm{tr} (\Sigma)
+\end{aligned}</script><h2 id="凸性的证明"><a href="#凸性的证明" class="headerlink" title="凸性的证明"></a>凸性的证明</h2><p>首先，矩阵诱导范数是凸的，即：令 $ f_x (A) = \lVert Ax \rVert _{p} \quad (p \ge 1) $ ，则 $f_x$ 凸，故 $\lVert A \rVert _{p} = \sup\limits_{\Vert x \rVert _{p}=1} f_x (A)$ 凸。特别的，$\lVert A \rVert_{2}$ 凸。<br>因为 $\lVert A \rVert_{\ast}$ 和 $\lVert A \rVert_{2}$ 是对偶范数，所以 $\lVert A \rVert_{\ast}$ 凸。（$\lVert A \rVert_{\ast}=\sup \limits_{\lVert X \rVert_{2}=1} \mathrm{tr} \left( A^{\mathsf{T}}X \right)$）</p>
+<h2 id="梯度的求解"><a href="#梯度的求解" class="headerlink" title="梯度的求解"></a>梯度的求解</h2><p>基于上述 S.V.D 的假设，我们可以轻易地得到，</p>
+<script type="math/tex; mode=display">
+\frac{\partial \lVert X \rVert_{\ast}}{\partial X} = \frac{\partial \mathrm{tr} (\Sigma)}{\partial X} = \frac{\mathrm{tr} (\partial \Sigma)}{\partial X}</script><p>所以我们需要解出 $\partial \Sigma$ ，<br>考虑 $X=U \Sigma V^{\mathsf{T}}$ ，因此：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& & \partial X & = (\partial U )\Sigma V^{\mathsf{T}} + U (\partial \Sigma) V^{\mathsf{T}} + U \Sigma (\partial V^{\mathsf{T}}) \\
+&\Rightarrow \, & \partial \Sigma & = U^{\mathsf{T}} (\partial X) V - U^{\mathsf{T}} (\partial U) \Sigma - \Sigma (\partial V^{\mathsf{T}}) V \\
+& & & = U^{\mathsf{T}} (\partial X) V \qquad (- U^{\mathsf{T}} (\partial U) \Sigma - \Sigma (\partial V^{\mathsf{T}}) V = 0)
+\end{aligned}</script><p>所以：</p>
+<script type="math/tex; mode=display">
+\frac{\partial \lVert X \rVert_{\ast}}{\partial X} = \frac{\mathrm{tr} (\partial \Sigma)}{\partial X} = \frac{\mathrm{tr} (U^{\mathsf{T}} (\partial X)V)}{\partial X} = \frac{\mathrm{tr} (V U^{\mathsf{T}} (\partial X))}{\partial X} = (V U^{\mathsf{T}})^{\mathsf{T}} = U V^{\mathsf{T}}</script><h1 id="低秩问题的近似"><a href="#低秩问题的近似" class="headerlink" title="低秩问题的近似"></a>低秩问题的近似</h1><p>定义了核范数以后，我们就可以将低秩优化问题近似成相应的核范数优化问题了。<br>即：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\mathrm{minimize} \quad  \lVert Z \rVert_{\ast} \\
+&\text{subject to} \quad  \sum_{(i,j):\text{Observed}} (Z_{ij} - X_{ij})^{2} \le \delta
+\end{aligned} \\
+\text{Impute missing } X_{ij} \text{ with } Z_{ij}</script>
       
     </div>
     

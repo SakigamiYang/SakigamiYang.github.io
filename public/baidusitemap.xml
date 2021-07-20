@@ -4,19 +4,47 @@
 
     
   <url>
-    <loc>https://sakigami-yang.me/2021/07/20/baby-gc/</loc>
-    <lastmod>2021-07-20T14:29:13.794Z</lastmod>
+    <loc>https://sakigami-yang.me/2017/08/13/about-kernel-02/</loc>
+    <lastmod>2021-07-20T15:08:33.828Z</lastmod>
     <data>
         <display>
-        <title>一个简单的垃圾回收代码</title>
-        <pubTime>2021-07-20T13:37:01.000Z</pubTime>
+        <title>说一说核方法（二）——数学角度简介（掉粉文）</title>
+        <pubTime>2017-08-13T09:42:38.000Z</pubTime>
         
-        <tag>GC</tag>
+        <tag>Kernel</tag>
+         
+        <tag>RKHS</tag>
+         
+        <tag>Functional analysis</tag>
          
          
            
              
-              <breadCrumb title="Develop" url="https://sakigami-yang.me/categories/Develop/"/>
+              <breadCrumb title="ML" url="https://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://sakigami-yang.me/2017/09/09/norm-regularization-02/</loc>
+    <lastmod>2021-07-20T15:07:34.647Z</lastmod>
+    <data>
+        <display>
+        <title>浅说范数规范化（二）—— 核范数</title>
+        <pubTime>2017-09-09T01:42:10.000Z</pubTime>
+        
+        <tag>Norm regularization</tag>
+         
+        <tag>Convex optimization</tag>
+         
+        <tag>Matrix theory</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="https://sakigami-yang.me/categories/ML/"/>
           
         </display>
     </data>
@@ -25,7 +53,7 @@
     
   <url>
     <loc>https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/</loc>
-    <lastmod>2021-07-19T13:50:26.335Z</lastmod>
+    <lastmod>2021-07-20T15:06:48.047Z</lastmod>
     <data>
         <display>
         <title>由 Softmax 想到的（二）—— Logistic 回归的 Loss 函数为什么长成那个样子？</title>
@@ -52,23 +80,19 @@
 
     
   <url>
-    <loc>https://sakigami-yang.me/2017/08/13/about-kernel-02/</loc>
-    <lastmod>2021-07-19T13:24:32.449Z</lastmod>
+    <loc>https://sakigami-yang.me/2021/07/20/baby-gc/</loc>
+    <lastmod>2021-07-20T14:29:13.794Z</lastmod>
     <data>
         <display>
-        <title>说一说核方法（二）——数学角度简介（掉粉文）</title>
-        <pubTime>2017-08-13T09:42:38.000Z</pubTime>
+        <title>一个简单的垃圾回收代码</title>
+        <pubTime>2021-07-20T13:37:01.000Z</pubTime>
         
-        <tag>Kernel</tag>
-         
-        <tag>RKHS</tag>
-         
-        <tag>Functional analysis</tag>
+        <tag>GC</tag>
          
          
            
              
-              <breadCrumb title="ML" url="https://sakigami-yang.me/categories/ML/"/>
+              <breadCrumb title="Develop" url="https://sakigami-yang.me/categories/Develop/"/>
           
         </display>
     </data>
@@ -262,30 +286,6 @@
         <pubTime>2017-09-13T03:14:14.000Z</pubTime>
         
         <tag>Norm regularization</tag>
-         
-        <tag>Matrix theory</tag>
-         
-         
-           
-             
-              <breadCrumb title="ML" url="https://sakigami-yang.me/categories/ML/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://sakigami-yang.me/2017/09/09/norm-regularization-02/</loc>
-    <lastmod>2021-07-19T13:03:31.697Z</lastmod>
-    <data>
-        <display>
-        <title>浅说范数规范化（二）—— 核范数</title>
-        <pubTime>2017-09-09T01:42:10.000Z</pubTime>
-        
-        <tag>Norm regularization</tag>
-         
-        <tag>Convex optimization</tag>
          
         <tag>Matrix theory</tag>
          
