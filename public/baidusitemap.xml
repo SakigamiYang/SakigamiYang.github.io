@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://sakigami-yang.me/2021/07/20/baby-gc/</loc>
+    <lastmod>2021-07-20</lastmod>
+  </url>
+  <url>
     <loc>https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/</loc>
     <lastmod>2021-07-19</lastmod>
   </url>
@@ -25,15 +29,11 @@
     <lastmod>2021-07-19</lastmod>
   </url>
   <url>
-    <loc>https://sakigami-yang.me/2017/08/07/init-blog/</loc>
-    <lastmod>2021-07-19</lastmod>
-  </url>
-  <url>
     <loc>https://sakigami-yang.me/2017/10/15/from-boost-to-Adaboost-to-GBT/</loc>
     <lastmod>2021-07-19</lastmod>
   </url>
   <url>
-    <loc>https://sakigami-yang.me/2017/09/07/norm-regularization-01/</loc>
+    <loc>https://sakigami-yang.me/2017/08/07/init-blog/</loc>
     <lastmod>2021-07-19</lastmod>
   </url>
   <url>
@@ -41,11 +41,15 @@
     <lastmod>2021-07-19</lastmod>
   </url>
   <url>
-    <loc>https://sakigami-yang.me/2017/09/09/norm-regularization-02/</loc>
+    <loc>https://sakigami-yang.me/2017/09/07/norm-regularization-01/</loc>
     <lastmod>2021-07-19</lastmod>
   </url>
   <url>
     <loc>https://sakigami-yang.me/2017/09/13/norm-regularization-appendix/</loc>
+    <lastmod>2021-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://sakigami-yang.me/2017/09/09/norm-regularization-02/</loc>
     <lastmod>2021-07-19</lastmod>
   </url>
   <url>
