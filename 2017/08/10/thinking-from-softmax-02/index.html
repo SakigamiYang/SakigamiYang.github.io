@@ -118,12 +118,12 @@
 <meta property="og:site_name" content="机器不太会学习">
 <meta property="og:description" content="由好友 史博士 关于 Softmax 的问题而想到的一些脑洞。本文讲解了 Logistic 模型的 Loss 函数的来源。以及想到的一些凸优化的知识。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://sakigami-yang.me/.me//subgradient.png">
-<meta property="og:updated_time" content="2021-07-20T15:06:48.047Z">
+<meta property="og:image" content="https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/subgradient.png">
+<meta property="og:updated_time" content="2021-07-21T12:39:17.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="由 Softmax 想到的（二）—— Logistic 回归的 Loss 函数为什么长成那个样子？">
 <meta name="twitter:description" content="由好友 史博士 关于 Softmax 的问题而想到的一些脑洞。本文讲解了 Logistic 模型的 Loss 函数的来源。以及想到的一些凸优化的知识。">
-<meta name="twitter:image" content="https://sakigami-yang.me/.me//subgradient.png">
+<meta name="twitter:image" content="https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/subgradient.png">
 
 
 
@@ -439,7 +439,8 @@ Loss =
 <p>一类常见的凸优化问题就是目标函数是凸函数，并且边界条件是仿射集的优化问题。如：支持向量机（SVM） 、 感知机（Perceptron）等等。<br>为什么要研究凸优化呢？因为凸函数有一个优点——全局最小值。<br>它可以让人们明确一个信念，即：所研究的问题一定是可学习的，而且一定在全局有一个固定结果，并不会踩到某个局部极值从而达不到最优。</p>
 <p>那么如何求得这个最值呢，一般的方法是利用梯度下降法（gradient descent，GD）。<br>由于凸函数有一个一阶条件：$f(y) \ge f(x) + \nabla f(x)^{\mathsf{T}}(y-x)$ ，所以我们很容易看到，沿着目标函数 $f$ 的梯度方向一直下降的话（其实是梯度方向的反向，因为要下降），终究会像从沙滩上滑下一般到达最小值。<br>（顺便一说凸函数还有一个二阶条件：$\nabla^{2}f(x) \ge 0$ 。）</p>
 <p>那么，问题来了，如果目标函数不是光滑的怎么办？<br>比如 $y=|x|$ ，这很明显是一个凸锥。<br>再比如，神经网络（neural net，NN）中最常见的激活函数（activation Function）：ReLU，这也是一个凸锥。</p>
-<p>解决方法是提出次梯度（subgradient）的概念。<br>所谓次梯度，是一个很像梯度的，但是是个常量的 $g$ ，它满足：$f(y) \ge f(x) + g^{\mathsf{T}}(y-x)$ 。<br>形式上是不是和凸函数的一阶条件很像？因此我们实际上是找了一个很像梯度的替代品。<br>例如：在 $y=|x|$ 的条件下，我们可以把原点的次梯度定义为 0。在ReLU的条件下，我们把原点的次梯度定义为 $1/2$ 等等。<br>样子如下图中的红线的斜率：<br><img src="/.me//subgradient.png" alt="Subgradient"></p>
+<p>解决方法是提出次梯度（subgradient）的概念。<br>所谓次梯度，是一个很像梯度的，但是是个常量的 $g$ ，它满足：$f(y) \ge f(x) + g^{\mathsf{T}}(y-x)$ 。<br>形式上是不是和凸函数的一阶条件很像？因此我们实际上是找了一个很像梯度的替代品。<br>例如：在 $y=|x|$ 的条件下，我们可以把原点的次梯度定义为 0。在ReLU的条件下，我们把原点的次梯度定义为 $1/2$​​ 等等。<br>样子如下图中的红线的斜率：</p>
+<img src="/2017/08/10/thinking-from-softmax-02/subgradient.png" title="Subgradient">
 <p>（原图来自 <a href="https://baike.baidu.com/item/次导数/13882223?fr=aladdin" target="_blank" rel="noopener">百度百科：次导数</a>）</p>
 <h1 id="扩展：Softmax-模型的-Loss-函数——-Log-Sum-Exp-函数"><a href="#扩展：Softmax-模型的-Loss-函数——-Log-Sum-Exp-函数" class="headerlink" title="扩展：Softmax 模型的 Loss 函数—— Log-Sum-Exp 函数"></a>扩展：Softmax 模型的 Loss 函数—— Log-Sum-Exp 函数</h1><p>这里就不给出函数的形式了，大家请自行 wiki。<br>总之来说，是 Logistic 模型的 Loss 函数的高阶扩展。也是一个带有一堆 $\log$ 、$\exp$ 还要求加和的式子。</p>
 <p>它的凸性可以证明如下：</p>

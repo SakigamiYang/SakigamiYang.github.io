@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://sakigami-yang.me/2017/08/13/about-kernel-02/</loc>
-    <lastmod>2021-07-20T15:08:33.828Z</lastmod>
+    <lastmod>2021-07-21T12:39:59.772Z</lastmod>
     <data>
         <display>
         <title>说一说核方法（二）——数学角度简介（掉粉文）</title>
@@ -16,6 +16,34 @@
         <tag>RKHS</tag>
          
         <tag>Functional analysis</tag>
+         
+         
+           
+             
+              <breadCrumb title="ML" url="https://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/</loc>
+    <lastmod>2021-07-21T12:39:17.075Z</lastmod>
+    <data>
+        <display>
+        <title>由 Softmax 想到的（二）—— Logistic 回归的 Loss 函数为什么长成那个样子？</title>
+        <pubTime>2017-08-10T14:18:09.000Z</pubTime>
+        
+        <tag>Convex optimization</tag>
+         
+        <tag>Logistic</tag>
+         
+        <tag>Softmax</tag>
+         
+        <tag>Gradient</tag>
+         
+        <tag>Subgradient</tag>
          
          
            
@@ -40,34 +68,6 @@
         <tag>Convex optimization</tag>
          
         <tag>Matrix theory</tag>
-         
-         
-           
-             
-              <breadCrumb title="ML" url="https://sakigami-yang.me/categories/ML/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://sakigami-yang.me/2017/08/10/thinking-from-softmax-02/</loc>
-    <lastmod>2021-07-20T15:06:48.047Z</lastmod>
-    <data>
-        <display>
-        <title>由 Softmax 想到的（二）—— Logistic 回归的 Loss 函数为什么长成那个样子？</title>
-        <pubTime>2017-08-10T14:18:09.000Z</pubTime>
-        
-        <tag>Convex optimization</tag>
-         
-        <tag>Logistic</tag>
-         
-        <tag>Softmax</tag>
-         
-        <tag>Gradient</tag>
-         
-        <tag>Subgradient</tag>
          
          
            
