@@ -426,13 +426,24 @@
 <li>$net$ 或 $net_{i}$ ，净输出值，即 $net = w^{\mathsf{T}}x$ 。</li>
 <li>$a$ 或 $a_{i}$ ，神经元的激活函数输出值，即 $a=f(net)$ 。</li>
 </ul>
-<h1 id="均方误差——线性回归"><a href="#均方误差——线性回归" class="headerlink" title="均方误差——线性回归"></a>均方误差——线性回归</h1><p>线性回归使用均方误差作为损失函数。其激活函数为 identical ，即$a=net=w^{\mathsf{T}}x$ 。<br>其损失：<br>$$<br>J(w) = \frac{1}{2} (a-y)^{2}=\frac{1}{2} (net-y)^{2}<br>$$<br>输出神经元的敏感度：<br>$$<br>\delta = \frac{\partial J}{\partial net} = net-y = a-y<br>$$</p>
-<h1 id="交叉熵——逻辑回归"><a href="#交叉熵——逻辑回归" class="headerlink" title="交叉熵——逻辑回归"></a>交叉熵——逻辑回归</h1><p>逻辑回归使用最大似然估计方法估计参数。</p>
-<h2 id="二分类逻辑回归"><a href="#二分类逻辑回归" class="headerlink" title="二分类逻辑回归"></a>二分类逻辑回归</h2><p>其激活函数为 sigmoid 函数 ，即$a=\sigma(net)=\sigma(w^{\mathsf{T}}x)=\frac{1}{1+\exp(-w^{\mathsf{T}}x)}$ 。<br>其损失：<br>$$<br>J(w) = -L(w) = -y \ln a - (1-y) \ln (1-a)<br>$$<br>其中：<br>$$<br>L(w) = y \ln a + (1-y) \ln (1-a)<br>$$<br>是所谓的 log-likelihood。</p>
-<p>输出神经元的敏感度：<br>$$<br>\delta = \frac{\partial J}{\partial net} = \frac{\partial J}{\partial a} \frac{\partial a}{\partial net} = \frac{a-y}{(1-a)a}(1-a)a = a-y<br>$$</p>
-<h2 id="多分类逻辑回归"><a href="#多分类逻辑回归" class="headerlink" title="多分类逻辑回归"></a>多分类逻辑回归</h2><p>其激活函数为 softmax 函数，即$a=\mathrm{softmax}(net)=\frac{\exp(net_{i})}{\sum_{j=1}^{N}\exp(net_{j})}$ 。</p>
-<p>其损失：<br>$$<br>J(w) = -\sum_{j=1}^{N} y_j \ln a_j = \sum_{j=1}^{N} y_j (\ln \sum_{k=1}^{N} e^{net_{k}}-net_{j})<br>$$<br>第 $i$ 个输出神经元的敏感度：<br>$$<br>\delta_{i} = \frac{\partial J}{\partial net_{i}} = \sum_{j=1}^{N} y_j (\frac{\sum_{k=1}^{N} e^{net_{k}}\frac{\partial net_{k}}{\partial net_{i}}}{\sum_{k=1}^{N} e^{net_{k}}} - \frac{\partial net_{j}}{\partial net_{i}}) = \sum_{j=1}^{N} y_j  \frac{e^{net_{i}}}{\sum_{k=1}^{N} e^{net_{k}}} - \sum_{j=1}^{N} y_j  \frac{\partial net_{j}}{\partial net_{i}} = a_{i}-y_{i}<br>$$</p>
-
+<h1 id="均方误差——线性回归"><a href="#均方误差——线性回归" class="headerlink" title="均方误差——线性回归"></a>均方误差——线性回归</h1><p>线性回归使用均方误差作为损失函数。其激活函数为 identical ，即$a=net=w^{\mathsf{T}}x$ 。<br>其损失：</p>
+<script type="math/tex; mode=display">
+J(w) = \frac{1}{2} (a-y)^{2}=\frac{1}{2} (net-y)^{2}</script><p>输出神经元的敏感度：</p>
+<script type="math/tex; mode=display">
+\delta = \frac{\partial J}{\partial net} = net-y = a-y</script><h1 id="交叉熵——逻辑回归"><a href="#交叉熵——逻辑回归" class="headerlink" title="交叉熵——逻辑回归"></a>交叉熵——逻辑回归</h1><p>逻辑回归使用最大似然估计方法估计参数。</p>
+<h2 id="二分类逻辑回归"><a href="#二分类逻辑回归" class="headerlink" title="二分类逻辑回归"></a>二分类逻辑回归</h2><p>其激活函数为 sigmoid 函数 ，即$a=\sigma(net)=\sigma(w^{\mathsf{T}}x)=\frac{1}{1+\exp(-w^{\mathsf{T}}x)}$ 。<br>其损失：</p>
+<script type="math/tex; mode=display">
+J(w) = -L(w) = -y \ln a - (1-y) \ln (1-a)</script><p>其中：</p>
+<script type="math/tex; mode=display">
+L(w) = y \ln a + (1-y) \ln (1-a)</script><p>是所谓的 log-likelihood。</p>
+<p>输出神经元的敏感度：</p>
+<script type="math/tex; mode=display">
+\delta = \frac{\partial J}{\partial net} = \frac{\partial J}{\partial a} \frac{\partial a}{\partial net} = \frac{a-y}{(1-a)a}(1-a)a = a-y</script><h2 id="多分类逻辑回归"><a href="#多分类逻辑回归" class="headerlink" title="多分类逻辑回归"></a>多分类逻辑回归</h2><p>其激活函数为 softmax 函数，即$a=\mathrm{softmax}(net)=\frac{\exp(net_{i})}{\sum_{j=1}^{N}\exp(net_{j})}$ 。</p>
+<p>其损失：</p>
+<script type="math/tex; mode=display">
+J(w) = -\sum_{j=1}^{N} y_j \ln a_j = \sum_{j=1}^{N} y_j (\ln \sum_{k=1}^{N} e^{net_{k}}-net_{j})</script><p>第 $i$ 个输出神经元的敏感度：</p>
+<script type="math/tex; mode=display">
+\delta_{i} = \frac{\partial J}{\partial net_{i}} = \sum_{j=1}^{N} y_j (\frac{\sum_{k=1}^{N} e^{net_{k}}\frac{\partial net_{k}}{\partial net_{i}}}{\sum_{k=1}^{N} e^{net_{k}}} - \frac{\partial net_{j}}{\partial net_{i}}) = \sum_{j=1}^{N} y_j  \frac{e^{net_{i}}}{\sum_{k=1}^{N} e^{net_{k}}} - \sum_{j=1}^{N} y_j  \frac{\partial net_{j}}{\partial net_{i}} = a_{i}-y_{i}</script>
       
     </div>
     
@@ -667,7 +678,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">

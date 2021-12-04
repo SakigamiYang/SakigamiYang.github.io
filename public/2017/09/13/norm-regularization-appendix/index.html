@@ -420,7 +420,22 @@
 
       
         <h1 id="附录-A：矩阵条件数-kappa-A"><a href="#附录-A：矩阵条件数-kappa-A" class="headerlink" title="附录 A：矩阵条件数 $\kappa({A})$"></a>附录 A：矩阵条件数 $\kappa({A})$</h1><p>在本系列第一篇里提到病态矩阵的时候，说到了矩阵条件数的一些性质，下面给一个简单的证明。</p>
-<p>事实上由于条件数是描述线性方程系统 $AX = b$ 的变化敏感度的一个量，所以我们给这个系统的每个量一个微扰，然后解出 $x$ 的变化程度：<br>$$<br>\begin{aligned}<br>&amp; \quad (A+\Delta A)(x + \Delta x) = b+\Delta b \<br>&amp; \Rightarrow \Delta x = A^{-1}[\Delta b - (\Delta A) x - (\Delta A)(\Delta x)] \<br>&amp; \Rightarrow \lVert \Delta x \rVert \le \lVert A^{-1} \rVert (\lVert \Delta b \rVert + \lVert \Delta A \rVert \lVert x \rVert + \lVert \Delta A\rVert \lVert \Delta x\rVert ) \<br>&amp; \Rightarrow (1-\lVert A^{-1} \rVert \lVert \Delta A \rVert) \lVert \Delta x \rVert \le \lVert A^{-1} \rVert (\lVert \Delta b \rVert + \lVert \Delta A \rVert \lVert x \rVert) \<br>&amp; \Rightarrow \lVert \Delta x \rVert \le \frac{\lVert A^{-1} \rVert}{1-\lVert A^{-1} \rVert \lVert \Delta A \rVert} \left( \lVert \Delta b \rVert + \lVert \Delta A \rVert \lVert x \rVert \right) \qquad (\because \, \lVert A^{-1} \rVert \lVert \Delta A \rVert \le 1) \<br>&amp; \Rightarrow \frac {\lVert \Delta x \rVert}{\lVert x \rVert} \le \frac{\lVert A^{-1} \rVert \lVert A \rVert}{1-\lVert A^{-1} \rVert \lVert \Delta A \rVert} \left( \frac{\lVert \Delta b \rVert}{\lVert b \rVert} + \frac{\lVert \Delta A \rVert}{\lVert A \rVert} \right) \qquad (\because \, \lVert b \rVert \le \lVert A \rVert \lVert x \rVert)<br>\end{aligned}<br>$$<br>当 $\Delta A = 0$ 时，有：<br>$$<br>\frac{\lVert \Delta x \rVert}{\lVert x \rVert} \le \kappa(A) \frac{\lVert \Delta b \rVert}{\lVert b \rVert}<br>$$<br>当 $\Delta b = 0$ 时，有：<br>$$<br>\frac{\lVert \Delta x \rVert}{\lVert x \rVert} \le \kappa(A) \frac{\lVert \Delta A \rVert}{\lVert A \rVert}(1+o(\lVert A^{-1} \rVert))<br>$$<br>一个常用的条件数是 2-条件数：<br>$$<br>\kappa_{2}(A) = \lVert A^{-1} \rVert _{2} \lVert A \rVert _{2} = \sqrt{\frac{\lambda _{max}}{\lambda <em>{min}}}<br>$$<br>其中，$\lambda</em>{max}$ 和 $\lambda_{min}$ 分别是 $A^{\mathsf{H}}A$ 的最大特征值和最小特征值。<br>（从这个角度上来看，条件数也确实是衡量矩阵敏感度的一个值。）</p>
+<p>事实上由于条件数是描述线性方程系统 $AX = b$ 的变化敏感度的一个量，所以我们给这个系统的每个量一个微扰，然后解出 $x$ 的变化程度：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& \quad (A+\Delta A)(x + \Delta x) = b+\Delta b \\
+& \Rightarrow \Delta x = A^{-1}[\Delta b - (\Delta A) x - (\Delta A)(\Delta x)] \\
+& \Rightarrow \lVert \Delta x \rVert \le \lVert A^{-1} \rVert (\lVert \Delta b \rVert + \lVert \Delta A \rVert \lVert x \rVert + \lVert \Delta A\rVert \lVert \Delta x\rVert ) \\
+& \Rightarrow (1-\lVert A^{-1} \rVert \lVert \Delta A \rVert) \lVert \Delta x \rVert \le \lVert A^{-1} \rVert (\lVert \Delta b \rVert + \lVert \Delta A \rVert \lVert x \rVert) \\
+& \Rightarrow \lVert \Delta x \rVert \le \frac{\lVert A^{-1} \rVert}{1-\lVert A^{-1} \rVert \lVert \Delta A \rVert} \left( \lVert \Delta b \rVert + \lVert \Delta A \rVert \lVert x \rVert \right) \qquad (\because \, \lVert A^{-1} \rVert \lVert \Delta A \rVert \le 1) \\
+& \Rightarrow \frac {\lVert \Delta x \rVert}{\lVert x \rVert} \le \frac{\lVert A^{-1} \rVert \lVert A \rVert}{1-\lVert A^{-1} \rVert \lVert \Delta A \rVert} \left( \frac{\lVert \Delta b \rVert}{\lVert b \rVert} + \frac{\lVert \Delta A \rVert}{\lVert A \rVert} \right) \qquad (\because \, \lVert b \rVert \le \lVert A \rVert \lVert x \rVert)
+\end{aligned}</script><p>当 $\Delta A = 0$ 时，有：</p>
+<script type="math/tex; mode=display">
+\frac{\lVert \Delta x \rVert}{\lVert x \rVert} \le \kappa(A) \frac{\lVert \Delta b \rVert}{\lVert b \rVert}</script><p>当 $\Delta b = 0$ 时，有：</p>
+<script type="math/tex; mode=display">
+\frac{\lVert \Delta x \rVert}{\lVert x \rVert} \le \kappa(A) \frac{\lVert \Delta A \rVert}{\lVert A \rVert}(1+o(\lVert A^{-1} \rVert))</script><p>一个常用的条件数是 2-条件数：</p>
+<script type="math/tex; mode=display">
+\kappa_{2}(A) = \lVert A^{-1} \rVert _{2} \lVert A \rVert _{2} = \sqrt{\frac{\lambda _{max}}{\lambda _{min}}}</script><p>其中，$\lambda_{max}$ 和 $\lambda_{min}$ 分别是 $A^{\mathsf{H}}A$ 的最大特征值和最小特征值。<br>（从这个角度上来看，条件数也确实是衡量矩阵敏感度的一个值。）</p>
 
       
     </div>
@@ -656,7 +671,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">

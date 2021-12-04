@@ -425,10 +425,18 @@
 <p>常见的生成模型有：朴素贝叶斯（Naive Bayes）、隐马尔可夫模型（Hidden Markov Model）、贝叶斯网络（Bayes Networks）、隐含狄利克雷分布（Latent Dirichlet Allocation）。</p>
 <h1 id="理论解释"><a href="#理论解释" class="headerlink" title="理论解释"></a>理论解释</h1><p>定义：</p>
 <ul>
-<li>训练数据 $(C, X)$ ，$C={c_1, c_2, \cdots, c_n}$ 是n个训练样本的标签，$X={x_1, x_2, \cdots, x_n}$ 是n个训练样本的特征。</li>
+<li>训练数据 $(C, X)$ ，$C=\{c_1, c_2, \cdots, c_n\}$ 是n个训练样本的标签，$X=\{x_1, x_2, \cdots, x_n\}$ 是n个训练样本的特征。</li>
 <li>单个测试数据 $(\tilde{c}, \tilde{x})$ ，$\tilde{c}$ 是测试数据的标签，$\tilde{x}$ 是测试数据的特征。</li>
 </ul>
-<h2 id="判别模型"><a href="#判别模型" class="headerlink" title="判别模型"></a>判别模型</h2><p>训练完毕后，输入测试数据，直接给出 $P(\tilde{c} | \tilde{x}) = P(\tilde{c} | \tilde{x}, C, X)$ 。我们认为这个条件分布是由模型的参数 $\theta$ 决定的，即 $P(\tilde{c} | \tilde{x},\theta)$ 。对于求解结果，我们有：<br>$$<br>\begin{aligned}<br>&amp;P(\tilde{c} | \tilde{x}) \<br>=&amp;P(\tilde{c} | \tilde{x}, C, X) \<br>=&amp;\int P(\tilde{c}, \theta | \tilde{x}, C, X) \, d \theta \<br>=&amp;\int P(\tilde{c} | \tilde{x}, \theta) \cdot P(\theta | C, X) \, d \theta \<br>=&amp;\int P(\tilde{c} | \tilde{x}, \theta) \cdot \frac{P(C | X, \theta) \cdot P(\theta)}{\int P(C | X, \theta) \cdot P(\theta) \, d \theta} \, d \theta<br>\end{aligned}<br>$$<br>实际上，求这个式子里的两个积分是相当复杂的，而且几乎不可能拿到全部的信息。</p>
+<h2 id="判别模型"><a href="#判别模型" class="headerlink" title="判别模型"></a>判别模型</h2><p>训练完毕后，输入测试数据，直接给出 $P(\tilde{c} | \tilde{x}) = P(\tilde{c} | \tilde{x}, C, X)$ 。我们认为这个条件分布是由模型的参数 $\theta$ 决定的，即 $P(\tilde{c} | \tilde{x},\theta)$ 。对于求解结果，我们有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&P(\tilde{c} | \tilde{x}) \\
+=&P(\tilde{c} | \tilde{x}, C, X) \\
+=&\int P(\tilde{c}, \theta | \tilde{x}, C, X) \, d \theta \\
+=&\int P(\tilde{c} | \tilde{x}, \theta) \cdot P(\theta | C, X) \, d \theta \\
+=&\int P(\tilde{c} | \tilde{x}, \theta) \cdot \frac{P(C | X, \theta) \cdot P(\theta)}{\int P(C | X, \theta) \cdot P(\theta) \, d \theta} \, d \theta
+\end{aligned}</script><p>实际上，求这个式子里的两个积分是相当复杂的，而且几乎不可能拿到全部的信息。</p>
 <p>所以我们采用 variational inference 的方法来解决这个问题。如果训练样本足够多的话，可以使用 $\theta$ 的最大后验分布 $\theta_{MAP}$ 来对 $\theta$ 进行点估计（point estimate）。此时有， $P(\tilde{c} | \tilde{x}) = P(\tilde{c} | \tilde{x}, C, X) = P(\tilde{c} | \tilde{x},\theta_{MAP})$ 。</p>
 <p>至于求最大后验分布，考虑到 $P(C|X) = \int P(C | X, \theta) \cdot P(\theta) \, d \theta$ 是一个常数，我们只要求 $P(C | X, \theta) \cdot P(\theta)$ 的最大值就可以，于是问题转变为求最大似然函数。</p>
 <p>事实上，在假设噪声为高斯分布的前提下，最小误差平方和优化问题等价于求最大似然函数。（有兴趣的同学可以自己证明一下。）</p>
@@ -689,7 +697,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">

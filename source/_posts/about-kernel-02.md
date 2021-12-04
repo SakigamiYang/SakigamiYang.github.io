@@ -13,7 +13,7 @@ description: 本文从数学角度介绍了再生核希尔伯特空间。
 
 先介绍几个概念，我们暂时只讨论由线性空间发展出来的概念，因为线性空间有很多很好的性质。
 
-![Linear space](about-kernel-02/linear_space.png)
+{% asset_img linear_space.png Linear space %}
 
 # 线性空间
 

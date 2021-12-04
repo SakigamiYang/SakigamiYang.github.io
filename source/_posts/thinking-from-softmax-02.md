@@ -58,9 +58,10 @@ $$
 解决方法是提出次梯度（subgradient）的概念。
 所谓次梯度，是一个很像梯度的，但是是个常量的 $g$ ，它满足：$f(y) \ge f(x) + g^{\mathsf{T}}(y-x)$ 。
 形式上是不是和凸函数的一阶条件很像？因此我们实际上是找了一个很像梯度的替代品。
-例如：在 $y=|x|$ 的条件下，我们可以把原点的次梯度定义为 0。在ReLU的条件下，我们把原点的次梯度定义为 $1/2$ 等等。
+例如：在 $y=|x|$ 的条件下，我们可以把原点的次梯度定义为 0。在ReLU的条件下，我们把原点的次梯度定义为 $1/2$​​ 等等。
 样子如下图中的红线的斜率：
-![Subgradient](thinking-from-softmax-02/subgradient.png)
+
+{% asset_img subgradient.png Subgradient %}
 
 （原图来自 [百度百科：次导数](https://baike.baidu.com/item/次导数/13882223?fr=aladdin)）
 
