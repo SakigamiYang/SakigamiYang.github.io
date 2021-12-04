@@ -144,26 +144,6 @@
 
     
   <url>
-    <loc>https://sakigami-yang.me/2017/10/12/statistical-formulars-for-programmers/</loc>
-    <lastmod>2021-07-19T13:03:31.698Z</lastmod>
-    <data>
-        <display>
-        <title>给程序员们看的统计公式</title>
-        <pubTime>2017-10-12T01:56:30.000Z</pubTime>
-        
-        <tag>Statistics</tag>
-         
-         
-           
-             
-              <breadCrumb title="Mathematics" url="https://sakigami-yang.me/categories/Mathematics/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://sakigami-yang.me/2017/08/10/thinking-from-softmax-01/</loc>
     <lastmod>2021-07-19T13:03:31.698Z</lastmod>
     <data>
@@ -183,6 +163,26 @@
            
              
               <breadCrumb title="ML" url="https://sakigami-yang.me/categories/ML/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://sakigami-yang.me/2017/10/12/statistical-formulars-for-programmers/</loc>
+    <lastmod>2021-07-19T13:03:31.698Z</lastmod>
+    <data>
+        <display>
+        <title>给程序员们看的统计公式</title>
+        <pubTime>2017-10-12T01:56:30.000Z</pubTime>
+        
+        <tag>Statistics</tag>
+         
+         
+           
+             
+              <breadCrumb title="Mathematics" url="https://sakigami-yang.me/categories/Mathematics/"/>
           
         </display>
     </data>

@@ -420,7 +420,9 @@
 
       
         <h1 id="我们需要范数规则化的原因"><a href="#我们需要范数规则化的原因" class="headerlink" title="我们需要范数规则化的原因"></a>我们需要范数规则化的原因</h1><p>监督机器学习用一句话总结就是：Minimize your error while regularizing your parameters。<br>其中“minimize error”是目的，一般采用最小化损失函数的做法来达到。<br>而“regularizing parameters”就是一种保障，它可以防止模型发生过拟合，让模型的参数规模尽量向着“简单”的方向进化。（根据奥卡姆剃刀原理 Occam’s Razor，简单的模型虽然不尽准确，却也有更好的泛化能力。）</p>
-<p>所以监督机器学习一般可以用一个公式来代表：<br>$$<br>w^{\ast} = \mathop{\arg\min}<em>{w} \sum</em>{i} L(y_{i}, f(x_{i};w)) + \lambda\Omega(w)<br>$$<br>对于第一项的损失函数，我们不在本文中做过多讨论，大概说一下：</p>
+<p>所以监督机器学习一般可以用一个公式来代表：</p>
+<script type="math/tex; mode=display">
+w^{\ast} = \mathop{\arg\min}_{w} \sum_{i} L(y_{i}, f(x_{i};w)) + \lambda\Omega(w)</script><p>对于第一项的损失函数，我们不在本文中做过多讨论，大概说一下：</p>
 <ul>
 <li>Square loss —— 最小二乘</li>
 <li>Hinge loss —— SVM</li>
@@ -443,11 +445,24 @@
 <p>关于 L2 范数如何提升模型泛化能力就不赘述了，在此讲一下它对优化计算所作出的贡献。</p>
 <p>优化问题有两个难题，一：局部最小值，二：病态（ill-condition）问题。<br>第一个问题很容易理解，那么第二个问题提到的病态又是什么呢？<br>简单来说，假设有一个方程 $AX = b$ ，如果 $A$ 和 $b$ 稍微发生改变就会引起 $X$ 的巨大变化的话，我们就称这个方程组系统是病态（ill-condition）的。反之就是良态（well-condition）的。</p>
 <p>举个例子，在人脸识别中，如果一个人粘了个假睫毛就不认识了，那就说明她的脸是“病态的”（笑）。</p>
-<p>定义：方阵 $A$ 是非奇异的，那么 $A$ 的条件数（condition number）定义为<br>$$<br>\kappa(A) = \lVert A \rVert \lVert A^{-1} \rVert<br>$$<br>经过简单的证明（请参考本系列的附录 A），我们可以得到以下的结论<br>$$<br>\frac{\lVert \Delta x \rVert}{\lVert x \rVert} \le \kappa(A) \cdot \frac{\lVert \Delta b \rVert}{\lVert b \rVert} \<br>\frac{\lVert \Delta x \rVert}{\lVert x + \Delta x \rVert} \le \kappa(A) \cdot \frac{\lVert \Delta A \rVert}{\lVert A \rVert}<br>$$<br>因此可以认为，condition number 描述的是一个矩阵（或它形成的线性系统）的稳定性（或敏感度）的度量。<br>如果一个矩阵的 condition number 在 1 附近，那么它是 well-condition 的；反之，它是 ill-condition 的。</p>
-<p>考虑线性回归的解析解<br>$$<br>w^{\ast} = (X^{\mathsf{T}}X)^{-1}X^{\mathsf{T}}y<br>$$<br>如果样本的数目比样本的维度还要小的时候，矩阵 $ X^{\mathsf{T}}X $ 将会不是满秩的，也就不可逆。<br>但如果加上 L2 范数规则项，解就变成<br>$$<br>w^{\ast} = (X^{\mathsf{T}}X + \lambda I)^{-1}X^{\mathsf{T}}y<br>$$<br>此时，就可以直接求逆了。</p>
+<p>定义：方阵 $A$ 是非奇异的，那么 $A$ 的条件数（condition number）定义为</p>
+<script type="math/tex; mode=display">
+\kappa(A) = \lVert A \rVert \lVert A^{-1} \rVert</script><p>经过简单的证明（请参考本系列的附录 A），我们可以得到以下的结论</p>
+<script type="math/tex; mode=display">
+\frac{\lVert \Delta x \rVert}{\lVert x \rVert} \le \kappa(A) \cdot \frac{\lVert \Delta b \rVert}{\lVert b \rVert} \\
+\frac{\lVert \Delta x \rVert}{\lVert x + \Delta x \rVert} \le \kappa(A) \cdot \frac{\lVert \Delta A \rVert}{\lVert A \rVert}</script><p>因此可以认为，condition number 描述的是一个矩阵（或它形成的线性系统）的稳定性（或敏感度）的度量。<br>如果一个矩阵的 condition number 在 1 附近，那么它是 well-condition 的；反之，它是 ill-condition 的。</p>
+<p>考虑线性回归的解析解</p>
+<script type="math/tex; mode=display">
+w^{\ast} = (X^{\mathsf{T}}X)^{-1}X^{\mathsf{T}}y</script><p>如果样本的数目比样本的维度还要小的时候，矩阵 $ X^{\mathsf{T}}X $ 将会不是满秩的，也就不可逆。<br>但如果加上 L2 范数规则项，解就变成</p>
+<script type="math/tex; mode=display">
+w^{\ast} = (X^{\mathsf{T}}X + \lambda I)^{-1}X^{\mathsf{T}}y</script><p>此时，就可以直接求逆了。</p>
 <p>另外，通常我们并不适用解析解求解，而是使用牛顿迭代法求解。<br>此时，加入规则项的两一个好处就是它可以将目标函数变为 $ \lambda $ 强凸（$\lambda$ -strongly convex）的。</p>
-<p>定义：当 $f$ 满足<br>$$<br>f(y) \ge f(x) + \langle \nabla f(x), y-x \rangle + \frac{\lambda}{2} \lVert y-x \rVert ^{2}<br>$$<br>时，我们称 $f$ 为 $ \lambda $ 强凸（$\lambda$ -strongly convex）的。</p>
-<p>对比一阶泰勒展开<br>$$<br>f(y) \ge f(x) + \langle \nabla f(x), y-x \rangle + o (\lVert y-x \rVert)<br>$$<br>我们可以发现，这种强凸性质不仅仅要求函数在某条切线的上方，而且还要求函数整体在某个二次函数图像上方，即已经具备一定的“向上弯曲度”。<br>所以这种函数的下降速度非常快，而且很稳定。</p>
+<p>定义：当 $f$ 满足</p>
+<script type="math/tex; mode=display">
+f(y) \ge f(x) + \langle \nabla f(x), y-x \rangle + \frac{\lambda}{2} \lVert y-x \rVert ^{2}</script><p>时，我们称 $f$ 为 $ \lambda $ 强凸（$\lambda$ -strongly convex）的。</p>
+<p>对比一阶泰勒展开</p>
+<script type="math/tex; mode=display">
+f(y) \ge f(x) + \langle \nabla f(x), y-x \rangle + o (\lVert y-x \rVert)</script><p>我们可以发现，这种强凸性质不仅仅要求函数在某条切线的上方，而且还要求函数整体在某个二次函数图像上方，即已经具备一定的“向上弯曲度”。<br>所以这种函数的下降速度非常快，而且很稳定。</p>
 <div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="https://www.researchgate.net/publication/290729378_Why_l1_is_a_good_approximation_to_l0_A_geometric_explanation" target="_blank" rel="noopener">Ramirez, C. &amp; V. Kreinovich &amp; M. Argaez. Why l1 is a good approximation to l0: A geometric explanation [J]. <em>Engineering</em>, 2013, 7 (3): 203-207</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
       
     </div>
@@ -683,7 +698,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">

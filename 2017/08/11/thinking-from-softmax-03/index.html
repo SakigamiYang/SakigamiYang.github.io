@@ -419,7 +419,9 @@
       
 
       
-        <p>承接上文，提到 Logistic 模型，就会想到那个典型的 Sigmoid 函数。<br>其实 Sigmoid 本来就是“ S 形”的意思，不过似乎大家一说到 Sigmoid 函数就想起 Logistic 模型的那个函数。<br>该函数一般被记做 $\sigma(x)$ ：<br>$$<br>\sigma(x) = \frac{1}{1+e^{-x}}<br>$$<br>这个函数有一些很好的性质，比如：</p>
+        <p>承接上文，提到 Logistic 模型，就会想到那个典型的 Sigmoid 函数。<br>其实 Sigmoid 本来就是“ S 形”的意思，不过似乎大家一说到 Sigmoid 函数就想起 Logistic 模型的那个函数。<br>该函数一般被记做 $\sigma(x)$ ：</p>
+<script type="math/tex; mode=display">
+\sigma(x) = \frac{1}{1+e^{-x}}</script><p>这个函数有一些很好的性质，比如：</p>
 <ul>
 <li>它是连续并且光滑的，因此是可导的。这意味它在每一个点都可以求梯度。</li>
 <li>它的定义域是 $[-\infty, +\infty]$ 。</li>
@@ -435,7 +437,9 @@
 <li>输出值范围有限。基于梯度的优化方法会更加稳定。当激活函数的输出是无限的时候，模型的训练会更加高效，但是一般需要小心翼翼地设定合适的更小的学习率（learning rate）。</li>
 </ul>
 <p>如果不考虑输出值范围。满足这些条件的一个平凡例子是 $f(x) = x$ ，但是这样不能让两层网络逼近非线性函数。于是人们想到了 Sigmoid 函数。</p>
-<h1 id="Sigmoid-函数的问题"><a href="#Sigmoid-函数的问题" class="headerlink" title="Sigmoid 函数的问题"></a>Sigmoid 函数的问题</h1><p>最近几年，使用 Sigmoid 函数的人越来越少了，是因为它有一个致命的缺点，即当输入非常大或者非常小的时候（也称达到饱和，saturation），这些神经元的梯度是接近 0 的。所以这需要尤其注意参数的初始值设定，因为如果初始值很大，大部分神经元可能都会处在饱和的状态，从而“杀死”梯度（kill gradient）。这会导致神经网络变得很难学习。<br>事实上，由于：<br>$$<br>\sigma(x)’ = \sigma(x)(1 - \sigma(x))<br>$$<br>我们可以了解到，Sigmoid 函数的梯度的最大值也才是 $1/4$ 。如果放在向后传导网络中，运用链式法则多乘几层隐藏层，那么得到的偏导数大概要趋近于 0 了。</p>
+<h1 id="Sigmoid-函数的问题"><a href="#Sigmoid-函数的问题" class="headerlink" title="Sigmoid 函数的问题"></a>Sigmoid 函数的问题</h1><p>最近几年，使用 Sigmoid 函数的人越来越少了，是因为它有一个致命的缺点，即当输入非常大或者非常小的时候（也称达到饱和，saturation），这些神经元的梯度是接近 0 的。所以这需要尤其注意参数的初始值设定，因为如果初始值很大，大部分神经元可能都会处在饱和的状态，从而“杀死”梯度（kill gradient）。这会导致神经网络变得很难学习。<br>事实上，由于：</p>
+<script type="math/tex; mode=display">
+\sigma(x)' = \sigma(x)(1 - \sigma(x))</script><p>我们可以了解到，Sigmoid 函数的梯度的最大值也才是 $1/4$ 。如果放在向后传导网络中，运用链式法则多乘几层隐藏层，那么得到的偏导数大概要趋近于 0 了。</p>
 <p>另外一个小问题是，Sigmoid 函数并不是 0 均值的，所以正输入所计算出的的梯度也一定是正的（就是 1）。<br>当然，如果使用批训练（batch），能缓解一下这个问题。比 kill gradient 要好对付一点。</p>
 <p>不很科学的说，我们似乎也不需要在神经网络的每一层都产生一个类似于概率的东西。<br>神经网络的每一层应该起到为下一层提供新的抽象特征（feature）的作用，特别是这些特征如果能有一定的稀疏性就好了。<br>（这里稍微啰嗦一句，神经网络本身就是一个交织在一起的结构，再加入 Dropout ，其实是采用了随机森林（random forest）的 Bagging 思想的优点。）</p>
 <h1 id="其它的激活函数呢？"><a href="#其它的激活函数呢？" class="headerlink" title="其它的激活函数呢？"></a>其它的激活函数呢？</h1><ul>
@@ -698,7 +702,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">

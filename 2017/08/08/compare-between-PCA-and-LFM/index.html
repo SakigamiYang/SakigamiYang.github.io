@@ -420,13 +420,17 @@
 <a id="more"></a>
 <ol>
 <li><p>PCA</p>
-<p>PCA的目的是尽可能简化数据，即当数据维度 $p​$ 很大时，我们希望能够以一个更小维度的 $q​$ 维数据来代替它，而又不损失原始数据的随机程度，或者说是想要保持原始数据的分散程度。<br>即，希望找到能够代替原始数据 $\lbrace X_{1}, X_{2}, \cdots, X_{p} \rbrace$ 的一组数据 $\lbrace Y_{1}, Y_{2}, \cdots, Y_{q} \rbrace$ ，使得<br>$$<br>Y_{i} = \sum_{j=1}^{p} \alpha_{j}^{(i)} X_{j}<br>$$<br>由上式的线性关系可知，PCA可以看做是相关性（correlation） 的推广。我们从视觉上给随机变量所展示出来的数据一个分散程度的定义——“波动”。那么 correlation 就可以说，某两个随机变量的涨落相似，如果它们的相关性系数很高。</p>
+<p>PCA的目的是尽可能简化数据，即当数据维度 $p​$ 很大时，我们希望能够以一个更小维度的 $q​$ 维数据来代替它，而又不损失原始数据的随机程度，或者说是想要保持原始数据的分散程度。<br>即，希望找到能够代替原始数据 $\lbrace X_{1}, X_{2}, \cdots, X_{p} \rbrace$ 的一组数据 $\lbrace Y_{1}, Y_{2}, \cdots, Y_{q} \rbrace$ ，使得</p>
+<script type="math/tex; mode=display">
+Y_{i} = \sum_{j=1}^{p} \alpha_{j}^{(i)} X_{j}</script><p>由上式的线性关系可知，PCA可以看做是相关性（correlation） 的推广。我们从视觉上给随机变量所展示出来的数据一个分散程度的定义——“波动”。那么 correlation 就可以说，某两个随机变量的涨落相似，如果它们的相关性系数很高。</p>
 <p>同样，如果将某个 $Y_{i}$ 分解为 $X_{j}$ 的线性组合时，某些 $\alpha_{j}^{(i)}$ 很大（而其他的 $\alpha_{j}^{(i)}$ 接近 $0$ 甚至等于 $0$ ），那么我们就可以认为 $Y_{i}$ 与这些 $X_{j}$ 共沉浮，即相关性很高。当我们尽可能的排除掉那些 $\alpha_{j}^{(i)} $ 接近 $0$ 的维度时，对于剩下的维度，我们就可以说：原始的 $p$ 维数据的“波动”，大部分都反映在这个 $q$ 维的子空间里。</p>
 <p>因此，PCA 所给出的 $q$ 个特征向量（eigenvector）就是描述这个“波动”的 $q$ 个主方向，而 $q$ 个特征值（eigenvalue）就是描述这个“波动”在这 $q$ 个主方向上波动的幅度。</p>
 <p>所以，PCA 才被用来降维，也就是我们用它来关注数据“最乱”的几个方向，其它的方向变化不大，不重要。</p>
 </li>
 <li><p>LFM</p>
-<p>目标：解释 $\lbrace X_{1}, X_{2}, \cdots, X_{p} \rbrace$ 之间的相关性，即希望找到一些 $Z_{k}$，有<br>$$<br>\forall X_{i}, \text{ 能找到一系列 } \beta_{k}^{(i)}, \text{ 使得 } X_{i} = \sum_{k=1}^{r} \beta_{k}^{(i)} Z_{k}<br>$$<br>一般，假设 $\lbrace Z_{1}, Z_{2}, \cdots, Z_{r} \rbrace$ 是零均值、单位方差且不相关的。<br>（注意这里，所有的 $\beta^{\mathsf{T}}$ 就有点像 user 矩阵，所有的 $Z$ 就有点像 item 矩阵。所以 user-item 矩阵分解是LFM的一种应用。）</p>
+<p>目标：解释 $\lbrace X_{1}, X_{2}, \cdots, X_{p} \rbrace$ 之间的相关性，即希望找到一些 $Z_{k}$，有</p>
+<script type="math/tex; mode=display">
+\forall X_{i}, \text{ 能找到一系列 } \beta_{k}^{(i)}, \text{ 使得 } X_{i} = \sum_{k=1}^{r} \beta_{k}^{(i)} Z_{k}</script><p>一般，假设 $\lbrace Z_{1}, Z_{2}, \cdots, Z_{r} \rbrace$ 是零均值、单位方差且不相关的。<br>（注意这里，所有的 $\beta^{\mathsf{T}}$ 就有点像 user 矩阵，所有的 $Z$ 就有点像 item 矩阵。所以 user-item 矩阵分解是LFM的一种应用。）</p>
 <p>同时，对于不同的 $X$ ，他们的那些 $\beta$ 越相似，这些 $X$ 就越相似。<br>这也是我们能用它来判定有哪些用户相似，或者有哪些商品相似的原因。</p>
 <p>​</p>
 </li>
@@ -642,7 +646,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv">
